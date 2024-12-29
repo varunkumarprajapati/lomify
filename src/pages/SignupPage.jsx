@@ -19,12 +19,12 @@ export default function SignupPage() {
 
   return (
     <div className="w-screen h-screen text-black bg-white font-poppins">
-      <div className="flex flex-col items-center justify-center w-full h-full lg:flex-row gap-x-16 gap-y-16">
+      <div className="flex flex-col items-center justify-center w-full h-full lg:flex-row ">
         <div className="w-full h-[400px] lg:w-[700px]  lg:h-full bg-signupBackground" />
 
-        <div className="flex flex-col w-full h-full pl-16 lg:justify-center items-left">
+        <div className="flex flex-col w-full h-full pt-16 pl-12 overflow-y-auto lg:pl-16 lg:justify-center items-left">
           <div className="flex flex-col gap-y-3 ">
-            <h1 className="pb-4 text-5xl font-bold lg:text-4xl">Sign up</h1>
+            <h1 className="pb-4 text-4xl font-bold">Sign up</h1>
 
             <h2 className="pb-6 text-2xl lg:text-xl">
               Already have account?{"  "}
