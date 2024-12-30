@@ -8,7 +8,11 @@ export default function Icon({
   ...props
 }) {
   return (
-    <button className={twMerge(plain && "", className)} {...props}>
+    <button
+      type="button"
+      className={twMerge(plain && "", className)}
+      {...props}
+    >
       <Icon size={size} />
     </button>
   );
