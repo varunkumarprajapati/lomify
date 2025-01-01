@@ -11,3 +11,13 @@ export const signupValidationSchema = async (data) => {
   const validData = await schema.validate(data);
   return validData;
 };
+
+export const loginValidationSchema = async (data) => {
+  const schema = object({
+    email: string().email("Invalid email.").required("Gmail is required."),
+    password: string().required("Password is required.").min(5),
+  });
+
+  const validData = await schema.validate(data);
+  return validData;
+};

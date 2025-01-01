@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { Input, Button } from "../components/common";
-import { useState } from "react";
+
+import { useLoginMutation } from "../store";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
   const [data, setData] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
@@ -14,15 +20,24 @@ export default function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
+    login(data);
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error.data.message);
+      if (error.status === 403)
+        toast.error("Verification email sent. Please check your inbox.");
+    }
+    if (isSuccess) navigate("/");
+  }, [isSuccess, isError, error, navigate]);
 
   return (
     <div className="w-screen h-screen text-black bg-white font-poppins">
       <div className="flex flex-col items-center justify-center w-full h-full lg:flex-row">
         <div className="w-full h-[400px] lg:w-[700px] lg:h-full bg-signupBackground" />
 
-        <div className="flex flex-col w-full h-full pt-16 pl-12 overflow-y-auto lg:pl-16 lg:justify-center items-left">
+        <div className="flex flex-col w-full h-full pt-16 pl-12 overflow-y-auto lg:pt-0 lg:pl-28 lg:justify-center items-left">
           <div className="flex flex-col gap-y-3 ">
             <h1 className="pb-4 text-4xl font-bold">Login</h1>
 
@@ -38,7 +53,6 @@ export default function LoginPage() {
             </h2>
 
             <form
-              autoComplete="off"
               className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3"
               onSubmit={handleSubmit}
             >
@@ -55,7 +69,7 @@ export default function LoginPage() {
                 type="password"
                 onChange={handleChange}
               />
-              <Button solid className="mt-2">
+              <Button loading={isLoading} solid className="w-full mt-2">
                 Login
               </Button>
             </form>
