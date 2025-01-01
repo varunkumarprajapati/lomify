@@ -6,6 +6,7 @@ import { Input, Button } from "../components/common";
 import SignupModal from "../components/SignupModal";
 
 import { useSignupMutation } from "../store";
+import { signupValidationSchema } from "../utils/validation/validationSchema";
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -28,9 +29,13 @@ export default function SignupPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(data);
+
+    try {
+      const validData = await signupValidationSchema(data);
+      return signup(validData);
+    } catch (err) {}
   };
 
   const handleModal = () => {
@@ -40,8 +45,9 @@ export default function SignupPage() {
 
   useEffect(() => {
     if (isError) {
-      toast.warn(error.data.message);
+      if (error.status === 409) toast.warn(error.data.message);
     }
+
     if (isSuccess) {
       setData({ name: "", username: "", email: "", password: "" });
       setShowModal(true);
