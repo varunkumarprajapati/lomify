@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 
+import { PropsProvider } from "./context/PropsContext";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -23,7 +25,14 @@ export default function App() {
       />
 
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route
+          path="/"
+          element={
+            <PropsProvider>
+              <MainPage />
+            </PropsProvider>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>

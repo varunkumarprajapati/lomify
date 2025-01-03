@@ -4,6 +4,7 @@ const userApi = createApi({
   reducerPath: "user",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASEURL + "/api/users",
+    credentials: "include",
   }),
   endpoints: (builder) => {
     return {
@@ -26,9 +27,22 @@ const userApi = createApi({
           };
         },
       }),
+
+      fetchUser: builder.query({
+        query: () => {
+          return {
+            url: "/",
+            method: "GET",
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useSignupMutation, useLoginMutation } = userApi;
+export const {
+  useSignupMutation,
+  useLoginMutation,
+  useFetchUserQuery,
+} = userApi;
 export { userApi };
