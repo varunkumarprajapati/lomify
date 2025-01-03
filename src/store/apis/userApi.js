@@ -28,7 +28,19 @@ const userApi = createApi({
         },
       }),
 
+      updateUser: builder.mutation({
+        invalidatesTags: ["USER"],
+        query: (data) => {
+          return {
+            url: "/",
+            method: "PUT",
+            body: data,
+          };
+        },
+      }),
+
       fetchUser: builder.query({
+        providesTags: ["USER"],
         query: () => {
           return {
             url: "/",
@@ -43,6 +55,7 @@ const userApi = createApi({
 export const {
   useSignupMutation,
   useLoginMutation,
+  useUpdateUserMutation,
   useFetchUserQuery,
 } = userApi;
 export { userApi };
