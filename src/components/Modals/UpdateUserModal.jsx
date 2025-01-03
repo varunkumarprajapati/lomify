@@ -5,6 +5,7 @@ import { Icon, ModalContainer } from "../common";
 
 import { useUpdateUserMutation } from "../../store";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export default function UpdateUserModal({
   avatar,
@@ -14,13 +15,25 @@ export default function UpdateUserModal({
   about,
   onClose,
 }) {
-  const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const [
+    updateUser,
+    { isLoading, isSuccess, isError },
+  ] = useUpdateUserMutation();
 
   const handleAvatarSubmit = (avatarName) => {
     if (avatar === avatarName) return toast.info("Same avatar selected.");
-    updateUser({ avatar: avatarName });
-    return toast.success("Avatar Changed.");
+    return updateUser({ avatar: avatarName });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Avatar Changed.");
+    }
+
+    if (isError) {
+      toast.error("Something went wrong.");
+    }
+  }, [isSuccess, isError]);
 
   return (
     <ModalContainer>
