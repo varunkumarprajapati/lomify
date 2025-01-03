@@ -1,11 +1,13 @@
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { TbLoader2 } from "react-icons/tb";
+
 import Avatar from "../Avatar/Avatar";
+import Editor from "../common/Editor";
 import { Icon, ModalContainer } from "../common";
 
 import { useUpdateUserMutation } from "../../store";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
 
 export default function UpdateUserModal({
   avatar,
@@ -15,36 +17,39 @@ export default function UpdateUserModal({
   about,
   onClose,
 }) {
-  const [
-    updateUser,
-    { isLoading, isSuccess, isError },
-  ] = useUpdateUserMutation();
+  const [updateUser, { isLoading, isSuccess, isError, error }] =
+    useUpdateUserMutation();
 
   const handleAvatarSubmit = (avatarName) => {
     if (avatar === avatarName) return toast.info("Same avatar selected.");
     return updateUser({ avatar: avatarName });
   };
 
+  const handleSubmit = ({ name, value }) => updateUser({ [name]: value });
+
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Avatar Changed.");
+      toast.success("Profile updated successfully.");
     }
 
     if (isError) {
-      toast.error("Something went wrong.");
+      console.log(error);
+      if (error.status === 409) toast.error(error?.data?.message);
+      else toast.error("Something went wrong.");
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, error]);
 
   return (
     <ModalContainer>
       <div className="fixed inset-0 flex items-center justify-center overflow-hidden text-white bg-white bg-opacity-10">
-        <div className="fixed w-screen h-screen overflow-hidden bg-black lg:w-6/12 lg:h-4/6 lg:rounded-xl">
+        <div className="fixed w-screen h-screen px-6 lg:px-4 py-8 bg-black lg:w-[384px] lg:h-fit lg:rounded-xl">
           <Icon
             active
             icon={RxCross2}
             className="absolute top-4 right-4"
             onClick={onClose}
           />
+
           {isLoading && (
             <Icon
               icon={TbLoader2}
@@ -52,12 +57,45 @@ export default function UpdateUserModal({
             />
           )}
 
-          <div className="flex flex-col items-center justify-center w-full h-full">
+          <div className="flex flex-col items-center justify-center w-full h-full gap-y-4">
             <Avatar avatar={avatar} onSubmit={handleAvatarSubmit} />
-            <p>{name}</p>
-            <p>~@{username}</p>
-            <p>{email}</p>
-            <p>{about}</p>
+
+            <p className="text-xs text-neutral-200">{email}</p>
+
+            <div className="flex flex-col w-full gap-y-2">
+              <Editor
+                name="name"
+                label="Name"
+                giveValue={name}
+                isError={isError}
+                loading={isLoading}
+                onSubmit={handleSubmit}
+              >
+                <p>{name}</p>
+              </Editor>
+
+              <Editor
+                name="username"
+                label="Username"
+                giveValue={username}
+                isError={isError}
+                loading={isLoading}
+                onSubmit={handleSubmit}
+              >
+                <p>{username}</p>
+              </Editor>
+
+              <Editor
+                name="about"
+                label="About"
+                giveValue={about}
+                isError={isError}
+                loading={isLoading}
+                onSubmit={handleSubmit}
+              >
+                <p>{about}</p>
+              </Editor>
+            </div>
           </div>
         </div>
       </div>

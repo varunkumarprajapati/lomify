@@ -4,6 +4,7 @@ export default function Icon({
   className,
   icon: Icon,
   size = 20,
+  disabled,
   plain,
   active,
   ...props
@@ -11,6 +12,7 @@ export default function Icon({
   return (
     <button
       type="button"
+      disabled={disabled}
       className={twMerge(
         "flex justify-center items-center flex-shrink-0 flex-grow-0",
         active &&

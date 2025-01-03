@@ -35,6 +35,7 @@ export default function Input({
           )}
         >
           <input
+            id={name}
             name={name}
             placeholder={placeholder}
             type={showPassword ? "text" : type}
@@ -55,6 +56,7 @@ export default function Input({
           name={name}
           placeholder={placeholder}
           type={type}
+          id={name}
           className={twMerge(
             "focus:outline-none bg-inherit",
             commonClasses,
