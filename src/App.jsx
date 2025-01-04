@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 
 import { PropsProvider } from "./context/PropsContext";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
   return (
@@ -25,14 +26,16 @@ export default function App() {
       />
 
       <Routes>
-        <Route
-          path="/"
-          element={
-            <PropsProvider>
-              <MainPage />
-            </PropsProvider>
-          }
-        />
+        <Route path="/" element={<PrivateRoute />}>
+          <Route
+            index
+            element={
+              <PropsProvider>
+                <MainPage />
+              </PropsProvider>
+            }
+          />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
       </Routes>

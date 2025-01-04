@@ -41,6 +41,7 @@ const userApi = createApi({
 
       fetchUser: builder.query({
         providesTags: ["USER"],
+        keepUnusedDataFor: 0,
         query: () => {
           return {
             url: "/",
