@@ -39,7 +39,10 @@ export default function Editor({
 
   return (
     <div className="relative flex flex-col items-center justify-center w-full px-4 py-2 rounded-lg h-fit bg-neutral-900">
-      <label htmlFor={name} className="w-full text-xs text-neutral-400">
+      <label
+        htmlFor={name}
+        className="w-full text-sm lg:text-xs text-neutral-400"
+      >
         {label}
       </label>
 
@@ -68,13 +71,14 @@ export default function Editor({
             />
           </form>
         ) : (
-          <div className="pt-[5px] w-full">{children}</div>
+          <div className="lg:pt-[5px] pt-1 text-lg lg:text-base w-full">
+            {children}
+          </div>
         )}
       </div>
 
       {!isUpdating && (
         <Icon
-          size="16"
           icon={MdEdit}
           onClick={handleEdit}
           className="absolute p-1 rounded-full top-1 right-1 hover:bg-neutral-700"

@@ -25,8 +25,8 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (isError) {
-      toast.error(error.data.message);
-      if (error.status === 403)
+      toast.error(error?.data?.message);
+      if (error?.status === 403)
         toast.error("Verification email sent. Please check your inbox.");
     }
     if (isSuccess) navigate("/");

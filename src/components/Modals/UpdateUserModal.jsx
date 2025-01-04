@@ -46,7 +46,7 @@ export default function UpdateUserModal({
           <Icon
             active
             icon={RxCross2}
-            className="absolute top-4 right-4"
+            className="absolute lg:top-4 right-4 top-6 "
             onClick={onClose}
           />
 
@@ -60,7 +60,7 @@ export default function UpdateUserModal({
           <div className="flex flex-col items-center justify-center w-full h-full gap-y-4">
             <Avatar avatar={avatar} onSubmit={handleAvatarSubmit} />
 
-            <p className="text-xs text-neutral-200">{email}</p>
+            <p className="text-base lg:text-xs text-neutral-200">{email}</p>
 
             <div className="flex flex-col w-full gap-y-2">
               <Editor
