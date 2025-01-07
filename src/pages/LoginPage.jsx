@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Input, Button } from "../components/common";
 
 import { useLoginMutation } from "../store";
+import { loginValidationSchema } from "../utils/validation/validationSchema";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -18,9 +19,14 @@ export default function LoginPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(data);
+    try {
+      const validData = await loginValidationSchema(data);
+      login(validData);
+    } catch (err) {
+      return toast.error(err.message);
+    }
   };
 
   useEffect(() => {

@@ -35,7 +35,9 @@ export default function SignupPage() {
     try {
       const validData = await signupValidationSchema(data);
       return signup(validData);
-    } catch (err) {}
+    } catch (err) {
+      return toast.error(err.message);
+    }
   };
 
   const handleModal = () => {
