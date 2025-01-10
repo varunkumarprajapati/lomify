@@ -1,9 +1,17 @@
 import { io } from "socket.io-client";
 
-const URL = process.env.REACT_APP_BASEURL;
-
-const socket = io(URL, {
-  autoConnect: false,
+const socket = io(process.env.REACT_APP_BASEURL, {
+  transports: ["websocket", "polling"],
+  withCredentials: true,
 });
 
+const getSocketId = () =>
+  socket.on("connect", () => {
+    const { id } = socket;
+    console.log(id);
+  });
+const socketError = () =>
+  socket.on("connect_error", (err) => console.error(err));
+
 export default socket;
+export { getSocketId, socketError };
