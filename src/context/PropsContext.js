@@ -4,6 +4,7 @@ const PropsContext = createContext();
 
 function PropsProvider({ children }) {
   const [isChatOpen, setChatOpen] = useState(true);
+  const [isRightPanelOpen, setRightPanelOpen] = useState(false);
   const [messages, setMessages] = useState([
     { content: "Hello" },
     { content: "Hi" },
@@ -36,7 +37,15 @@ function PropsProvider({ children }) {
     zoro: "/images/zoro.webp",
   };
 
-  const data = { avatars, isChatOpen, setChatOpen, messages, setMessages };
+  const data = {
+    avatars,
+    isChatOpen,
+    setChatOpen,
+    messages,
+    setMessages,
+    isRightPanelOpen,
+    setRightPanelOpen,
+  };
   return <PropsContext.Provider value={data}>{children}</PropsContext.Provider>;
 }
 

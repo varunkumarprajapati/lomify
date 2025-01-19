@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdSend, MdAdd } from "react-icons/md";
 
 import Header from "./Header/Header";
@@ -38,8 +38,21 @@ export default function ChatRoom() {
 }
 
 function ChatArea({ messages }) {
+  const chatArea = useRef(null);
+  useEffect(() => {
+    if (chatArea.current) {
+      chatArea.current.scrollTo({
+        top: chatArea.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
-    <div className="w-full h-full overflow-y-scroll scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800">
+    <div
+      ref={chatArea}
+      className="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
+    >
       {messages.map((message, index) => (
         <Message key={index} {...message} />
       ))}
@@ -61,7 +74,7 @@ function Footer({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(message);
+    if (message.length) onSubmit(message);
     setTyping(false);
     setMessage("");
   };

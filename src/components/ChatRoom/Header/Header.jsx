@@ -48,10 +48,13 @@ export default function Header() {
 
 function UserCard() {
   const { data } = useFetchUserQuery();
-  const { avatars } = usePropsContext();
+  const { avatars, setRightPanelOpen } = usePropsContext();
 
   return (
-    <div className="flex items-center w-full cursor-pointer gap-x-3">
+    <div
+      className="flex items-center w-full cursor-pointer gap-x-3"
+      onClick={() => setRightPanelOpen(true)}
+    >
       <img
         draggable="false"
         src={avatars[data?.avatar]}
