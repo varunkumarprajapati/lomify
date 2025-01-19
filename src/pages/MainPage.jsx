@@ -22,7 +22,7 @@ export default function MainPage() {
   }, [data]);
 
   return (
-    <div className="flex w-screen h-screen p-2 text-white bg-black lg:gap-x-2 font-poppins">
+    <div className="flex w-screen h-screen p-4 text-white bg-black lg:gap-x-2 font-poppins">
       <Sidebar />
       <ChatRoom />
     </div>
