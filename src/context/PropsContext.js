@@ -3,15 +3,7 @@ import { createContext, useState } from "react";
 const PropsContext = createContext();
 
 function PropsProvider({ children }) {
-  const [isChatOpen, setChatOpen] = useState(true);
   const [isRightPanelOpen, setRightPanelOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { content: "Hello" },
-    { content: "Hi" },
-    { content: "heloo there i am varun https://www.google.com" },
-    { content: "On development" },
-    { content: "On development,chats are model" },
-  ]);
 
   const avatars = {
     brook: "/images/brook.webp",
@@ -39,10 +31,6 @@ function PropsProvider({ children }) {
 
   const data = {
     avatars,
-    isChatOpen,
-    setChatOpen,
-    messages,
-    setMessages,
     isRightPanelOpen,
     setRightPanelOpen,
   };

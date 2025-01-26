@@ -5,8 +5,9 @@ import ChatRoom from "../components/ChatRoom/ChatRoom";
 import RightPanel from "../components/RightPanel/RightPanel";
 
 import socket from "../socket";
+
 import { useFetchUserQuery } from "../store";
-import usePropsContext from "../hooks/use-PropsContext";
+import { usePropsContext } from "../hooks";
 
 export default function MainPage() {
   const { data } = useFetchUserQuery();

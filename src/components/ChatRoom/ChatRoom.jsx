@@ -5,10 +5,10 @@ import Header from "./Header/Header";
 import Message from "../Message/Message";
 import { Icon, Input } from "../common";
 
-import usePropsContext from "../../hooks/use-PropsContext";
+import { useChatRoomContext } from "../../hooks";
 
 export default function ChatRoom() {
-  const { isChatOpen, messages, setMessages } = usePropsContext();
+  const { isChatUser, messages, setMessages } = useChatRoomContext();
 
   const handleSubmit = (msg) => {
     setMessages((prev) => {
@@ -18,14 +18,14 @@ export default function ChatRoom() {
 
   return (
     <div className="hidden w-full h-full rounded-lg lg:flex bg-neutral-900">
-      {isChatOpen ? (
+      {isChatUser.username ? (
         <div className="flex flex-col items-center w-full h-full overflow-hidden rounded-lg bg-inherit ">
-          <Header />
+          <Header data={isChatUser} />
           <ChatArea messages={messages} />
           <Footer onSubmit={handleSubmit} />
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center w-full h-full text-center rounded-lg bg-neutral-800">
+        <div className="flex flex-col items-center justify-center w-full h-full text-center rounded-lg bg-neutral-900">
           <h1 className="text-4xl font-bold text-white">Lomify</h1>
           <p className="mt-4 text-lg text-gray-400">A Chat Application</p>
           <p className="mt-2 text-gray-400 text-md">
@@ -37,6 +37,7 @@ export default function ChatRoom() {
   );
 }
 
+// Chat Area component
 function ChatArea({ messages }) {
   const chatArea = useRef(null);
   useEffect(() => {
@@ -60,6 +61,7 @@ function ChatArea({ messages }) {
   );
 }
 
+// Footer component
 function Footer({ onSubmit }) {
   const [message, setMessage] = useState("");
   const [isTyping, setTyping] = useState(false);

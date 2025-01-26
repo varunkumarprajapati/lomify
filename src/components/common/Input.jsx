@@ -30,7 +30,7 @@ export default function Input({
             "flex items-center",
             commonClasses,
             outline && "border-2 border-gray-300",
-            solid && "bg-gray-200",
+            solid && "bg-gray-200 text-black placeholder:text-neutral-500",
             className
           )}
         >
@@ -61,7 +61,7 @@ export default function Input({
             "focus:outline-none bg-inherit",
             commonClasses,
             outline && "border-2 border-gray-300",
-            solid && "bg-gray-200",
+            solid && "bg-gray-200 text-black placeholder:text-neutral-500",
             className
           )}
           onChange={onChange}

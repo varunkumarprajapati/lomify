@@ -5,13 +5,14 @@ export default function Icon({
   icon: Icon,
   size = 20,
   disabled,
+  type = "button",
   plain,
   active,
   ...props
 }) {
   return (
     <button
-      type="button"
+      type={type}
       disabled={disabled}
       className={twMerge(
         "flex justify-center items-center flex-shrink-0 flex-grow-0",

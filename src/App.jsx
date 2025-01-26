@@ -5,8 +5,9 @@ import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 import SignupPage from "./pages/SignupPage";
 
-import { PropsProvider } from "./context/PropsContext";
 import PrivateRoute from "./routes/PrivateRoute";
+import { PropsProvider } from "./context/PropsContext";
+import { ChatRoomProvider } from "./context/ChatRoomContext";
 
 export default function App() {
   return (
@@ -31,7 +32,9 @@ export default function App() {
             index
             element={
               <PropsProvider>
-                <MainPage />
+                <ChatRoomProvider>
+                  <MainPage />
+                </ChatRoomProvider>
               </PropsProvider>
             }
           />

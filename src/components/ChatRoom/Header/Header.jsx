@@ -3,12 +3,11 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 import { Icon, Options } from "../../common";
 
-import { useFetchUserQuery } from "../../../store";
-import usePropsContext from "../../../hooks/use-PropsContext";
+import { useChatRoomContext, usePropsContext } from "../../../hooks";
 
-export default function Header() {
+export default function Header({ data }) {
   const [showToggle, setToggle] = useState(false);
-  const { setChatOpen } = usePropsContext();
+  const { setChatUser, setMessages } = useChatRoomContext();
 
   const options = [
     {
@@ -19,7 +18,8 @@ export default function Header() {
       title: "Close chat",
       onClick: () => {
         setToggle(false);
-        setChatOpen(false);
+        setMessages([]);
+        setChatUser({});
       },
     },
     {
@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <div className="relative w-full h-16 p-6 bg-neutral-800">
       <div className="flex items-center w-full h-full">
-        <UserCard />
+        <UserCard {...data} />
         <Icon
           size="20"
           icon={BsThreeDotsVertical}
@@ -46,8 +46,7 @@ export default function Header() {
   );
 }
 
-function UserCard() {
-  const { data } = useFetchUserQuery();
+function UserCard({ avatar, name }) {
   const { avatars, setRightPanelOpen } = usePropsContext();
 
   return (
@@ -57,12 +56,12 @@ function UserCard() {
     >
       <img
         draggable="false"
-        src={avatars[data?.avatar]}
-        alt={data?.avatar}
+        src={avatars[avatar]}
+        alt={avatar}
         className="w-12 rounded-full"
       />
       <div className="flex flex-col ">
-        <span>{data.name}</span>
+        <span>{name}</span>
         <span className="text-xs text-neutral-400">
           {true ? "typing..." : ""}
         </span>

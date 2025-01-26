@@ -15,14 +15,14 @@ export default function Button({
   return (
     <button
       disabled={loading}
-      type={type}
+      type={cancel ? "reset" : type}
       className={twMerge(
         loading && "bg-opacity-80",
         "w-fit rounded-md px-4 py-2 flex justify-center items-center lg:text-base text-lg",
         outline && "border-2 border-black font-semibold",
         solid && "bg-black text-white",
         active && "bg-blue-500 hover:bg-blue-600 text-white",
-        cancel && "bg-gray-300 hover:bg-gray-400",
+        cancel && "bg-gray-600 hover:bg-gray-700",
         className
       )}
       {...props}
