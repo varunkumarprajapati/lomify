@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import ModalContainer from "./ModalContainer";
-import Button from "./Button";
+import Button from "../ui/Button";
 
 export default function Modal({ children, onClick }) {
   const modalRef = useRef(null);

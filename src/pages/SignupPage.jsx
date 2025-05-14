@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Input, Button } from "../components/common";
+import { Input, Button } from "../components/ui";
 import SignupModal from "../components/SignupModal";
 
 import { useRegisterUserMutation } from "../store";
@@ -74,27 +74,30 @@ export default function SignupPage() {
             </h2>
 
             <form
-              autoComplete="off"
               className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3"
               onSubmit={handleSubmit}
             >
               <Input
-                solid
-                placeholder="Username"
+                label="Username"
+                autoComplete="username"
+                placeholder="Enter username"
                 name="username"
                 value={data.username}
                 onChange={handleChange}
               />
               <Input
-                solid
-                placeholder="Email"
+                label="Email"
+                autoComplete="email"
+                placeholder="Enter email"
                 name="email"
                 value={data.email}
                 onChange={handleChange}
               />
               <Input
-                solid
-                placeholder="Password"
+                showToggle
+                label="Password"
+                autoComplete="current-password"
+                placeholder="Enter password"
                 name="password"
                 type="password"
                 value={data.password}

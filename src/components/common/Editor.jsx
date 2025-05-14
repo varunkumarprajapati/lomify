@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { MdCheck, MdEdit } from "react-icons/md";
 
-import Input from "./Input";
+import { Input } from "../ui";
 import Icon from "./Icon";
 
 export default function Editor({

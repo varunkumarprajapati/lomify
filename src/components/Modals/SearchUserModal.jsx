@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { ModalContainer, Input, Button } from "../common";
+import { ModalContainer } from "../common";
+import { Input, Button } from "../ui";
 
 import { useFetchUsersMutation } from "../../store";
 import { usePropsContext, useChatRoomContext } from "../../hooks";

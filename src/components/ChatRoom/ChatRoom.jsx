@@ -3,7 +3,9 @@ import { MdSend, MdAdd } from "react-icons/md";
 
 import Header from "./Header/Header";
 import Message from "../Message/Message";
-import { Icon, Input } from "../common";
+import { Icon } from "../common";
+import { Input } from "../ui";
+
 
 import { useChatRoomContext } from "../../hooks";
 

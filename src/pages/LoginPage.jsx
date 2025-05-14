@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Input, Button } from "../components/common";
+import { Input, Button } from "../components/ui";
 
 import { useLoginMutation } from "../store";
 import { loginValidationSchema } from "../utils/validation/validationSchema";
