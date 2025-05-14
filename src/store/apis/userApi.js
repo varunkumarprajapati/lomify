@@ -8,26 +8,6 @@ const userApi = createApi({
   }),
   endpoints: (builder) => {
     return {
-      signup: builder.mutation({
-        query: (data) => {
-          return {
-            url: "/",
-            method: "POST",
-            body: data,
-          };
-        },
-      }),
-
-      login: builder.mutation({
-        query: (data) => {
-          return {
-            url: "/login",
-            method: "POST",
-            body: data,
-          };
-        },
-      }),
-
       updateUser: builder.mutation({
         invalidatesTags: ["USER"],
         query: (data) => {
@@ -53,10 +33,5 @@ const userApi = createApi({
   },
 });
 
-export const {
-  useSignupMutation,
-  useLoginMutation,
-  useUpdateUserMutation,
-  useFetchUserQuery,
-} = userApi;
+export const { useUpdateUserMutation, useFetchUserQuery } = userApi;
 export { userApi };

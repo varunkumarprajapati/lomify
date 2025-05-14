@@ -5,18 +5,15 @@ import { toast } from "react-toastify";
 import { Input, Button } from "../components/common";
 import SignupModal from "../components/SignupModal";
 
-import { useSignupMutation } from "../store";
+import { useRegisterUserMutation } from "../store";
 import { signupValidationSchema } from "../utils/validation/validationSchema";
 
 export default function SignupPage() {
   const navigate = useNavigate();
-  const [
-    signup,
-    { isLoading, isSuccess, isError, error },
-  ] = useSignupMutation();
+  const [signup, { isLoading, isSuccess, isError, error }] =
+    useRegisterUserMutation();
   const [showModal, setShowModal] = useState(false);
   const [data, setData] = useState({
-    name: "",
     username: "",
     email: "",
     password: "",
@@ -81,13 +78,6 @@ export default function SignupPage() {
               className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3"
               onSubmit={handleSubmit}
             >
-              <Input
-                solid
-                placeholder="Name"
-                name="name"
-                value={data.name}
-                onChange={handleChange}
-              />
               <Input
                 solid
                 placeholder="Username"
