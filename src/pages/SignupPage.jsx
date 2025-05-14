@@ -1,57 +1,54 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Formik, Form } from "formik";
+import { object, string } from "yup";
 
 import { Input, Button } from "../components/ui";
 import SignupModal from "../components/SignupModal";
 
 import { useRegisterUserMutation } from "../store";
-import { signupValidationSchema } from "../utils/validation/validationSchema";
 
 export default function SignupPage() {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const [signup, { isLoading, isSuccess, isError, error }] =
     useRegisterUserMutation();
-  const [showModal, setShowModal] = useState(false);
-  const [data, setData] = useState({
+
+  const initialValues = {
     username: "",
     email: "",
     password: "",
+  };
+
+  const validationSchema = object({
+    username: string()
+      .required("Username is required")
+      .min(5, "Username must be at least 5 characters")
+      .lowercase(),
+    email: string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: string()
+      .required("Password is required")
+      .min(5, "Password must be at least 5 characters"),
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const validData = await signupValidationSchema(data);
-      return signup(validData);
-    } catch (err) {
-      return toast.error(err.message);
-    }
-  };
 
   const handleModal = () => {
     setShowModal(false);
     navigate("/login");
   };
 
-  useEffect(() => {
-    if (isError) {
-      if (error.status === 409) toast.warn(error.data.message);
-    }
+  const handleSubmit = (values) => signup(values);
 
-    if (isSuccess) {
-      setData({ name: "", username: "", email: "", password: "" });
-      setShowModal(true);
+  useEffect(() => {
+    if (isSuccess) setShowModal(true);
+
+    if (isError) {
+      if (error.status === 500) toast.error("Internal Server Error");
+      toast.warn(error?.data?.message);
     }
-  }, [isSuccess, isError, error]);
+  }, [isError, error, isSuccess]);
 
   return (
     <div className="w-screen h-screen text-black bg-white font-poppins">
@@ -62,7 +59,7 @@ export default function SignupPage() {
           <div className="flex flex-col gap-y-3 ">
             <h1 className="pb-4 text-4xl font-bold">Sign up</h1>
 
-            <h2 className="pb-6 text-2xl lg:text-xl">
+            <h2 className="text-2xl lg:text-xl">
               Already have account?
               {"  "}
               <Link
@@ -73,40 +70,48 @@ export default function SignupPage() {
               </Link>
             </h2>
 
-            <form
-              className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3"
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              <Input
-                label="Username"
-                autoComplete="username"
-                placeholder="Enter username"
-                name="username"
-                value={data.username}
-                onChange={handleChange}
-              />
-              <Input
-                label="Email"
-                autoComplete="email"
-                placeholder="Enter email"
-                name="email"
-                value={data.email}
-                onChange={handleChange}
-              />
-              <Input
-                showToggle
-                label="Password"
-                autoComplete="current-password"
-                placeholder="Enter password"
-                name="password"
-                type="password"
-                value={data.password}
-                onChange={handleChange}
-              />
-              <Button solid className="w-full mt-2" loading={isLoading}>
-                Create Account
-              </Button>
-            </form>
+              {({ values, handleChange, errors, touched }) => (
+                <Form className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3">
+                  <Input
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                    placeholder="Enter username"
+                    value={values.username}
+                    onChange={handleChange}
+                    error={touched.username && errors.username}
+                  />
+                  <Input
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Enter email"
+                    value={values.email}
+                    onChange={handleChange}
+                    error={touched.email && errors.email}
+                  />
+                  <Input
+                    showToggle
+                    label="Password"
+                    name="password"
+                    autoComplete="new-password"
+                    placeholder="Enter password"
+                    type="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    error={touched.password && errors.password}
+                  />
+                  <Button solid className="w-full mt-2" loading={isLoading}>
+                    Create Account
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>

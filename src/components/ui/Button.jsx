@@ -5,10 +5,10 @@ export default function Button({
   children,
   className,
   type = "submit",
-  solid,
-  outline,
-  active,
-  cancel,
+  solid = false,
+  outline = false,
+  active = false,
+  cancel = false,
   loading,
   ...props
 }) {
