@@ -1,33 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Form, Formik } from "formik";
+import { object, string } from "yup";
 
 import { Input, Button } from "../components/ui";
 
 import { useLoginMutation } from "../store";
-import { loginValidationSchema } from "../utils/validation/validationSchema";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
-  const [data, setData] = useState({ email: "", password: "" });
+  const initialValues = { email: "", password: "" };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevState) => {
-      return { ...prevState, [name]: value };
-    });
-  };
+  const handleSubmit = (values) => login(values);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const validData = await loginValidationSchema(data);
-      login(validData);
-    } catch (err) {
-      return toast.error(err.message);
-    }
-  };
+  const validationSchema = object({
+    email: string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: string()
+      .required("Password is required")
+      .min(5, "Password must be at least 5 characters"),
+  });
 
   useEffect(() => {
     if (isError) {
@@ -58,27 +53,39 @@ export default function LoginPage() {
               </Link>
             </h2>
 
-            <form
-              className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3"
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
               onSubmit={handleSubmit}
             >
-              <Input
-                solid
-                placeholder="Email"
-                name="email"
-                onChange={handleChange}
-              />
-              <Input
-                solid
-                placeholder="Password"
-                name="password"
-                type="password"
-                onChange={handleChange}
-              />
-              <Button loading={isLoading} solid className="w-full mt-2">
-                Login
-              </Button>
-            </form>
+              {({ handleChange, errors, values, touched }) => (
+                <Form className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3">
+                  <Input
+                    label="Email"
+                    name="email"
+                    autoComplete="email"
+                    placeholder="Enter email"
+                    value={values.email}
+                    onChange={handleChange}
+                    error={touched.email && errors.email}
+                  />
+                  <Input
+                    showToggle
+                    label="Password"
+                    name="password"
+                    autoComplete="new-password"
+                    placeholder="Enter password"
+                    type="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    error={touched.password && errors.password}
+                  />
+                  <Button loading={isLoading} solid className="w-full mt-2">
+                    Login
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>
