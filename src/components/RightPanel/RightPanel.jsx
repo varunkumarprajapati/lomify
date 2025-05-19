@@ -2,7 +2,7 @@ import React from "react";
 import { BsTrash } from "react-icons/bs";
 import { MdArrowForward } from "react-icons/md";
 
-import { Icon } from "../common";
+import { Icon } from "../ui";
 
 import usePropsContext from "../../hooks/use-PropsContext";
 

@@ -5,7 +5,9 @@ import { TbLoader2 } from "react-icons/tb";
 
 import Avatar from "../Avatar/Avatar";
 import Editor from "../common/Editor";
-import { Icon, ModalContainer } from "../common";
+import { ModalContainer } from "../common";
+import { Icon } from "../ui";
+
 
 import { useUpdateUserMutation } from "../../store";
 

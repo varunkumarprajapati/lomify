@@ -27,9 +27,20 @@ const authApi = createApi({
           };
         },
       }),
+
+      verifyEmail: builder.query({
+        query: (token) => ({
+          method: "GET",
+          url: `/verify-email/${token}`,
+        }),
+      }),
     };
   },
 });
 
-export const { useRegisterUserMutation, useLoginMutation } = authApi;
+export const {
+  useRegisterUserMutation,
+  useLoginMutation,
+  useVerifyEmailQuery,
+} = authApi;
 export { authApi };

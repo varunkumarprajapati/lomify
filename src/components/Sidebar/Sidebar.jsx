@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
-import { Box, Icon } from "../common";
+import { Box, Icon } from "../ui";
 import Profile from "./Profile/Profile";
 import ChatList from "./ChatList/ChatList";
 import SearchUserModal from "../Modals/SearchUserModal";

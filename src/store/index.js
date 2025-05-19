@@ -22,7 +22,11 @@ const store = configureStore({
 setupListeners(store.dispatch);
 
 export { useUpdateUserMutation, useFetchUserQuery } from "./apis/userApi";
-export { useLoginMutation, useRegisterUserMutation } from "./apis/authApi";
+export {
+  useLoginMutation,
+  useRegisterUserMutation,
+  useVerifyEmailQuery,
+} from "./apis/authApi";
 export { useFetchUsersMutation } from "./apis/publicApi";
 
 export { store };

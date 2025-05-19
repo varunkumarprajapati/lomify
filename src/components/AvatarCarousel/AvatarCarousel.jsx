@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MdArrowLeft, MdArrowRight, MdCheck } from "react-icons/md";
 
-import { Icon } from "../common";
+import { Icon } from "../ui";
 
 export default function AvatarCarousel({ currentAvatar, onSubmit }) {
   const avatars = [

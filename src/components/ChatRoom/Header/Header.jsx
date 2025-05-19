@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import { Icon, Options } from "../../common";
+import { Options } from "../../common";
+import {Icon} from "../../ui"
 
 import { useChatRoomContext, usePropsContext } from "../../../hooks";
 
