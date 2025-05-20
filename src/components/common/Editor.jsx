@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { MdCheck, MdEdit } from "react-icons/md";
 
-import { Input } from "../ui";
 import Icon from "../ui/Icon";
 
 export default function Editor({
@@ -49,12 +48,12 @@ export default function Editor({
       <div className="flex flex-col items-center justify-center w-full">
         {isUpdating ? (
           <form autoComplete="off" onSubmit={handleSubmit} className="flex">
-            <Input
+            <input
               id={name}
               name={name}
               value={value}
               onChange={handleChange}
-              className="p-0 pt-1 border-b rounded-none "
+              className="w-full p-0 pt-1 bg-transparent border-b focus:outline-none"
             />
             <Icon
               disabled={loading}

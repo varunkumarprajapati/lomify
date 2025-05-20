@@ -1,95 +1,89 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { BiSearchAlt } from "react-icons/bi";
+import { LuLoader } from "react-icons/lu";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import { ModalContainer } from "../common";
-import { Input, Button } from "../ui";
+import { UserCard } from "../Placeholders";
+import { Input, Box, Icon } from "../ui";
+import UserList from "../User/UserList";
 
+import { useDebounce, useChatRoomContext } from "../../hooks";
 import { useFetchUsersMutation } from "../../store";
-import { usePropsContext, useChatRoomContext } from "../../hooks";
 
-export default function SearchUserModal({ onCancel }) {
+export default function SearchUserModal({ isOpen = false, onClose }) {
+  const debounce = useDebounce();
   const { setChatUser } = useChatRoomContext();
 
-  const [fetchUsers, { isLoading }] = useFetchUsersMutation();
+  const [searchUsers, { data: users = [], reset: resetUserList, isLoading }] =
+    useFetchUsersMutation();
 
-  const [query, setQuery] = useState("");
-  const [searchedUser, setSearchedUser] = useState({});
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!query.length) return toast.warning("Please enter something.");
-
-    const { data } = await fetchUsers({ username: query });
-    if (data.message) return toast.warning(data.message);
-
-    setSearchedUser(data);
+  const handleChange = (e) => {
+    const { value } = e.target;
+    if (!value.length) return;
+    debounce(() => searchUsers(value), 1000);
   };
 
-  const handleSelectUserClick = (user) => {
-    setChatUser(() => {
-      onCancel();
-      return user;
-    });
+  const handleSelectUser = (user) => {
+    setChatUser(user);
+    handleClose();
   };
 
+  const handleClose = () => {
+    onClose();
+    resetUserList();
+  };
+
+  let leftIcon = <BiSearchAlt className="mr-2 size-6 md:size-7" />;
+  if (isLoading) {
+    leftIcon = <LuLoader className="mr-2 animate-spin size-6 md:size-7" />;
+  }
+
+  let content = <NoResults />;
+  if (users.length) {
+    content = <UserList users={users} onClick={handleSelectUser} />;
+  }
+
+  if (!isOpen) return null;
   return (
     <ModalContainer>
-      <div className="fixed inset-0 flex items-center justify-center overflow-hidden text-white bg-white bg-opacity-10">
-        <div className="fixed w-screen h-screen px-6 py-4 bg-black lg:w-fit lg:px-4 lg:h-fit lg:rounded-xl">
-          <div className="flex flex-col justify-center w-full h-full gap-y-4">
-            {searchedUser?.name && (
-              <User
-                {...searchedUser}
-                onClick={() => handleSelectUserClick(searchedUser)}
-              />
-            )}
+      <div className="absolute inset-0 flex items-center justify-center bg-white/10">
+        <div className="absolute flex flex-col w-screen h-screen bg-black md:bg-transparent gap-y-1 md:w-auto md:h-auto">
+          <Box className="p-2 rounded-none md:rounded-2xl">
+            <h1 className="flex pb-3 text-xl font-semibold text-white gap-x-2">
+              <Icon active icon={IoMdArrowRoundBack} onClick={handleClose} />
+              Search here
+            </h1>
 
-            <form
-              className="flex flex-col items-center gap-y-2"
-              onSubmit={handleSubmit}
-            >
-              <Input
-                solid
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search by username"
-                className="!text-sm p-2"
-              />
-
-              <div className="flex items-center w-full *:w-full gap-x-2">
-                <Button active loading={isLoading}>
-                  Search
-                </Button>
-                <Button cancel onClick={onCancel}>
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </div>
+            <Input
+              solid
+              leftIcon={leftIcon}
+              className="border-2 border-white !rounded-xl"
+              onChange={handleChange}
+            />
+          </Box>
+          <Box className=" md:min-h-[404px] flex flex-col items-center w-full h-full scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800 text-white rounded-none md:rounded-2xl p-2 overflow-y-auto md:h-[404px]">
+            {content}
+          </Box>
         </div>
       </div>
     </ModalContainer>
   );
 }
 
-function User({ avatar, email, about, onClick }) {
-  const { avatars } = usePropsContext();
-
+function NoResults() {
   return (
-    <div
-      className="flex items-center justify-start px-4 py-2 transition-colors rounded-lg cursor-pointer select-none gap-x-4 hover:bg-neutral-800"
-      onClick={onClick}
-    >
-      <img
-        draggable="false"
-        src={avatars[avatar]}
-        alt="avatar"
-        className="rounded-full w-14"
-      />
-      <div className="flex flex-col justify-center items-starts ">
-        <p className="">{email}</p>
-        <p className="text-sm text-neutral-400">{about}</p>
+    <div className="py-12">
+      <div className="flex flex-col items-center justify-center pb-8">
+        <UserCard />
+      </div>
+      <div className="text-center">
+        <p className="mb-2 text-lg">Oops... No Results Found</p>
+        <p className="text-sm text-neutral-400">
+          Don't worry, it happens sometimes.
+          <br />
+          Perhaps you could try entering a <br />
+          different search term
+        </p>
       </div>
     </div>
   );

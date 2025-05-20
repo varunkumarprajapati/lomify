@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { object, string } from "yup";
 
 import { Input, Button } from "../components/ui";
-import SignupModal from "../components/SignupModal";
+import SignupModal from "../components/Modals/SignupModal";
 
 import { useRegisterUserMutation } from "../store";
 
@@ -78,6 +78,7 @@ export default function SignupPage() {
               {({ values, handleChange, errors, touched }) => (
                 <Form className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3">
                   <Input
+                    outline
                     label="Username"
                     name="username"
                     autoComplete="username"
@@ -87,6 +88,7 @@ export default function SignupPage() {
                     error={touched.username && errors.username}
                   />
                   <Input
+                    outline
                     label="Email"
                     name="email"
                     autoComplete="email"
@@ -96,6 +98,7 @@ export default function SignupPage() {
                     error={touched.email && errors.email}
                   />
                   <Input
+                    outline
                     showToggle
                     label="Password"
                     name="password"

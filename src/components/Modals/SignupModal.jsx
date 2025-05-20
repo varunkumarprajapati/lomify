@@ -1,4 +1,4 @@
-import { Modal } from "./common";
+import { Modal } from "../common";
 
 export default function SignupModal({ onClick }) {
   return (

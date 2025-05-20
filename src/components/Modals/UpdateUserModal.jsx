@@ -8,7 +8,6 @@ import Editor from "../common/Editor";
 import { ModalContainer } from "../common";
 import { Icon } from "../ui";
 
-
 import { useUpdateUserMutation } from "../../store";
 
 export default function UpdateUserModal({
@@ -55,7 +54,7 @@ export default function UpdateUserModal({
           {isLoading && (
             <Icon
               icon={TbLoader2}
-              className="absolute p-1 rounded-full top-4 right-14 animate-spin bg-neutral-700"
+              className="absolute p-1 rounded-full lg:top-4 top-6 right-14 animate-spin bg-neutral-700"
             />
           )}
 

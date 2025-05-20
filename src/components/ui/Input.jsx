@@ -5,9 +5,8 @@ import { MdErrorOutline } from "react-icons/md";
 
 export default function Input({
   autoComplete,
-  className,
+  className = "",
   error,
-  iconRight: IconRight,
   label,
   leftIcon: LeftIcon,
   rightIcon: RightIcon,
@@ -17,6 +16,9 @@ export default function Input({
   showToggle = false,
   type = "text",
   value,
+  plain = false,
+  solid = false,
+  outline = false,
   ...rest
 }) {
   const [isVisible, setVisible] = useState(false);
@@ -37,8 +39,10 @@ export default function Input({
 
       <div
         className={twMerge(
-          `flex items-center w-full px-2.5 md:py-1 py-2 bg-white rounded-md border-2 border-black focus-within:border-blue-500 
-          focus-within:duration-200 focus-within:transition-colors`,
+          "flex items-center w-full px-2.5 md:py-1 py-2 rounded-md bg-white text-black",
+          outline &&
+            "border-2 border-black focus-within:border-blue-500 focus-within:duration-200 focus-within:transition-color",
+          solid && "bg-neutral-700 text-white",
           error && "!border-red-500",
           className
         )}

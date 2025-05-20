@@ -9,14 +9,7 @@ const publicApi = createApi({
   endpoints: (builder) => {
     return {
       fetchUsers: builder.mutation({
-        query: (data) => {
-          return {
-            url: "/users",
-            method: "POST",
-            body: data,
-          };
-        },
-        keepUnusedDataFor: 0,
+        query: (query) => `/search-users?query=${query}`,
       }),
     };
   },

@@ -7,7 +7,7 @@ import ChatList from "./ChatList/ChatList";
 import SearchUserModal from "../Modals/SearchUserModal";
 
 export default function Sidebar() {
-  const [searchModal, setSearchModal] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
   return (
     <aside className="flex flex-col w-full h-full lg:p-0 gap-y-2 lg:max-w-80">
@@ -15,7 +15,7 @@ export default function Sidebar() {
         <Icon
           active
           icon={MdSearch}
-          onClick={() => setSearchModal(true)}
+          onClick={() => setOpen(true)}
           className="absolute bg-transparent top-2 right-2"
         />
         <Profile />
@@ -24,9 +24,7 @@ export default function Sidebar() {
         <ChatList />
       </Box>
 
-      {searchModal && (
-        <SearchUserModal onCancel={() => setSearchModal(false)} />
-      )}
+      <SearchUserModal isOpen={isOpen} onClose={() => setOpen(false)} />
     </aside>
   );
 }

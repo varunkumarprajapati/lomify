@@ -61,6 +61,7 @@ export default function LoginPage() {
               {({ handleChange, errors, values, touched }) => (
                 <Form className="flex flex-col items-center justify-center lg:w-64 w-72 gap-y-3">
                   <Input
+                    outline
                     label="Email"
                     name="email"
                     autoComplete="email"
@@ -70,6 +71,7 @@ export default function LoginPage() {
                     error={touched.email && errors.email}
                   />
                   <Input
+                    outline
                     showToggle
                     label="Password"
                     name="password"

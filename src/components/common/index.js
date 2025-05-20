@@ -1,4 +1,4 @@
-import ModalContainer from "./ModalContainer";
+import ModalContainer from "../ui/ModalContainer";
 import Modal from "./Modal";
 import Options from "./Options";
 
