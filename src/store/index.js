@@ -26,7 +26,8 @@ export {
   useLoginMutation,
   useRegisterUserMutation,
   useVerifyEmailQuery,
-  useLazyForgotPasswordQuery
+  useLazyForgotPasswordQuery,
+  useResetPasswordMutation
 } from "./apis/authApi";
 export { useFetchUsersMutation } from "./apis/publicApi";
 

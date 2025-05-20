@@ -7,6 +7,7 @@ import {
   SignupPage,
   VerifyEmailPage,
   ForgotPasswordPage,
+  ResetPasswordPage,
 } from "./pages";
 
 import PrivateRoute from "./routes/PrivateRoute";
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
       </Routes>
     </BrowserRouter>
   );

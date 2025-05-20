@@ -82,6 +82,11 @@ export default function LoginPage() {
                     onChange={handleChange}
                     error={touched.password && errors.password}
                   />
+                  <div className="w-full text-sm text-end">
+                    <Link to="/forgot-password" className="text-blue-600 underline">
+                      forgot password ?
+                    </Link>
+                  </div>
                   <Button loading={isLoading} solid className="w-full mt-2">
                     Login
                   </Button>
