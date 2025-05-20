@@ -29,10 +29,11 @@ const authApi = createApi({
       }),
 
       verifyEmail: builder.query({
-        query: (token) => ({
-          method: "GET",
-          url: `/verify-email/${token}`,
-        }),
+        query: (token) => `/verify-email/${token}`,
+      }),
+
+      forgotPassword: builder.query({
+        query: (email) => `/forgot-password?email=${email}`,
       }),
     };
   },
@@ -42,5 +43,6 @@ export const {
   useRegisterUserMutation,
   useLoginMutation,
   useVerifyEmailQuery,
+  useLazyForgotPasswordQuery
 } = authApi;
 export { authApi };

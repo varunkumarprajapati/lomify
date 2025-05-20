@@ -32,7 +32,13 @@ export default function Input({
   return (
     <div className="flex flex-col items-start justify-center w-full">
       {label && (
-        <label htmlFor={name} className="block mb-1 text-sm font-medium">
+        <label
+          htmlFor={name}
+          className={twMerge(
+            "block mb-1 text-sm font-medium",
+            solid && "text-neutral-400"
+          )}
+        >
           {label}
         </label>
       )}

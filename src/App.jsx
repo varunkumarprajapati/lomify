@@ -1,7 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer, Bounce } from "react-toastify";
 
-import { LoginPage, MainPage, SignupPage, VerifyEmailPage } from "./pages";
+import {
+  LoginPage,
+  MainPage,
+  SignupPage,
+  VerifyEmailPage,
+  ForgotPasswordPage,
+} from "./pages";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import { PropsProvider } from "./context/PropsContext";
@@ -40,6 +46,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
       </Routes>
     </BrowserRouter>
   );
