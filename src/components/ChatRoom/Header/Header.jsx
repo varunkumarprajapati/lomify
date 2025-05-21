@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-import { Options } from "../../common";
-import {Icon} from "../../ui"
+import { Options } from "@/components/common";
+import { Icon } from "@/components/ui";
 
-import { useChatRoomContext, usePropsContext } from "../../../hooks";
+import { useChatRoomContext, usePropsContext } from "@/hooks";
 
 export default function Header({ data }) {
   const [showToggle, setToggle] = useState(false);

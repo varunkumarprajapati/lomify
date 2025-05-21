@@ -7,8 +7,8 @@ import { UserCard } from "../Placeholders";
 import { Input, Box, Icon } from "../ui";
 import UserList from "../User/UserList";
 
-import { useDebounce, useChatRoomContext } from "../../hooks";
-import { useFetchUsersMutation } from "../../store";
+import { useDebounce, useChatRoomContext } from "@/hooks";
+import { useFetchUsersMutation } from "@/store";
 
 export default function SearchUserModal({ isOpen = false, onClose }) {
   const debounce = useDebounce();

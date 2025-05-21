@@ -9,7 +9,6 @@ export default function Modal({ children, onClick }) {
   useEffect(() => {
     const handleModalClick = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        console.log(modalRef.current && !modalRef.current.contains(e.target));
         return onClick();
       }
     };

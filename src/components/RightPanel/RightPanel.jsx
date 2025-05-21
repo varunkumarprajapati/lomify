@@ -4,7 +4,7 @@ import { MdArrowForward } from "react-icons/md";
 
 import { Icon } from "../ui";
 
-import usePropsContext from "../../hooks/use-PropsContext";
+import { usePropsContext } from "@/hooks";
 
 export default function RightPanel({ data }) {
   const { avatars, setRightPanelOpen } = usePropsContext();

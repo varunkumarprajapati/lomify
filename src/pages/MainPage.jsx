@@ -14,7 +14,6 @@ export default function MainPage() {
   const { isRightPanelOpen } = usePropsContext();
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       socket.connect();
       socket.emit("subscribe", data._id);

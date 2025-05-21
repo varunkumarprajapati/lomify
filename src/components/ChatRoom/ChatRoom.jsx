@@ -5,7 +5,7 @@ import Header from "./Header/Header";
 import Message from "../Message/Message";
 import { Input, Icon } from "../ui";
 
-import { useChatRoomContext } from "../../hooks";
+import { useChatRoomContext } from "@/hooks";
 
 export default function ChatRoom() {
   const { isChatUser, messages, setMessages } = useChatRoomContext();

@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
-import usePropsContext from "../../hooks/use-PropsContext";
+import usePropsContext from "@/hooks/use-PropsContext";
 import { Icon } from "../ui";
 import AvatarCarousel from "../AvatarCarousel/AvatarCarousel";
 

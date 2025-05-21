@@ -8,7 +8,7 @@ import Editor from "../common/Editor";
 import { ModalContainer } from "../common";
 import { Icon } from "../ui";
 
-import { useUpdateUserMutation } from "../../store";
+import { useUpdateUserMutation } from "@/store";
 
 export default function UpdateUserModal({
   avatar,
@@ -34,7 +34,6 @@ export default function UpdateUserModal({
     }
 
     if (isError) {
-      console.log(error);
       if (error.status === 409) toast.error(error?.data?.message);
       else toast.error("Something went wrong.");
     }

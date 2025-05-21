@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-import UpdateUserModal from "../../Modals/UpdateUserModal";
-import ProfileLoading from "../../LoadingScreen/ProfileLoading";
+import UpdateUserModal from "@/components/Modals/UpdateUserModal";
+import ProfileLoading from "@/components/LoadingScreen/ProfileLoading";
 
-import { useFetchUserQuery } from "../../../store";
-import usePropsContext from "../../../hooks/use-PropsContext";
+import { useFetchUserQuery } from "@/store";
+import usePropsContext from "@/hooks/use-PropsContext";
 
 export default function Profile() {
   const [isModalOpen, setModalOpen] = useState(false);
