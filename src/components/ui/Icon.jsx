@@ -1,21 +1,21 @@
 import { twMerge } from "tailwind-merge";
 
-export default function Icon({
-  className,
+const Icon = ({
+  className = "",
   icon: Icon,
   size = 20,
   disabled,
   type = "button",
-  plain,
-  active,
+  plain = false,
+  active = false,
   ...props
-}) {
+}) => {
   return (
     <button
       type={type}
       disabled={disabled}
       className={twMerge(
-        "flex justify-center items-center flex-shrink-0 flex-grow-0",
+        "flex justify-center items-center flex-shrink-0 flex-grow-0 cursor-pointer",
         active &&
           "rounded-full bg-neutral-700 hover:bg-neutral-600 hover:scale-110 transition p-1",
         plain && "",
@@ -23,7 +23,9 @@ export default function Icon({
       )}
       {...props}
     >
-      <Icon size={size} />
+      <Icon size={size} className="w-full h-full" />
     </button>
   );
-}
+};
+
+export default Icon;

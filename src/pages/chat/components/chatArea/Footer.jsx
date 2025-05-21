@@ -16,24 +16,33 @@ export default function Footer({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (message.length) onSubmit(message);
+    if (message.length) onSubmit({ content: message });
     setTyping(false);
     setMessage("");
   };
 
   return (
-    <div className="flex items-center justify-between w-full h-16 p-6 bg-neutral-800">
-      <form className="flex w-full" autoComplete="off" onSubmit={handleSubmit}>
-        <Icon icon={MdAdd} size="32" />
+    <footer className="bg-neutral-800 px-3 py-4 md:p-6">
+      <form
+        className="flex items-center gap-x-2 w-full"
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
+        <Icon icon={MdAdd} className="size-8 md:size-7" />
         <Input
+          solid
           value={message}
           name="message"
-          className="w-full px-5 mx-4 rounded-3xl bg-neutral-700"
+          className="rounded-3xl !px-4 !py-2"
           placeholder="Type a message"
           onChange={handleChange}
         />
-        <Icon icon={MdSend} size="28" name="send" type="submit" />
+        <Icon
+          icon={MdSend}
+          type="submit"
+          className="size-8 hover:text-primary md:size-7"
+        />
       </form>
-    </div>
+    </footer>
   );
 }

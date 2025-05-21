@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Options } from "@/components/common";
 import { Icon } from "@/components/ui";
 
-import { useChatRoomContext, usePropsContext } from "@/hooks";
+import { usePropsContext } from "@/hooks";
+import { clearChatState } from "@/store";
+import { twMerge } from "tailwind-merge";
 
-export default function ChatHeader({ data }) {
+export default function ChatHeader() {
+  const dispatch = useDispatch();
+  const selectedUser = useSelector((state) => state.chat.selectedUser);
   const [showToggle, setToggle] = useState(false);
-  const { setChatUser, setMessages } = useChatRoomContext();
 
   const options = [
     {
@@ -19,8 +23,7 @@ export default function ChatHeader({ data }) {
       title: "Close chat",
       onClick: () => {
         setToggle(false);
-        setMessages([]);
-        setChatUser({});
+        dispatch(clearChatState());
       },
     },
     {
@@ -32,34 +35,32 @@ export default function ChatHeader({ data }) {
   const handleOptionClick = () => setToggle(!showToggle);
 
   return (
-    <header className="relative w-full h-16 p-6 bg-neutral-800">
-      <div className="flex items-center w-full h-full">
-        <UserCard {...data} />
-        <Icon
-          size="20"
-          icon={BsThreeDotsVertical}
-          onClick={handleOptionClick}
-          className="p-2 rounded-full hover:bg-neutral-700"
-        />
-      </div>
+    <header className="relative flex items-center px-5 py-3 bg-neutral-800">
+      <UserCard {...selectedUser} className="flex-1" />
+      <Icon
+        active
+        icon={BsThreeDotsVertical}
+        onClick={handleOptionClick}
+        className="size-8 md:size-7 bg-transparent"
+      />
       {showToggle && <Options options={options} className="right-8 top-14" />}
     </header>
   );
 }
 
-function UserCard({ avatar, name }) {
+function UserCard({ avatar, name, className }) {
   const { avatars, setRightPanelOpen } = usePropsContext();
 
   return (
     <div
-      className="flex items-center w-full cursor-pointer gap-x-3"
+      className={twMerge("flex items-center cursor-pointer gap-x-3", className)}
       onClick={() => setRightPanelOpen(true)}
     >
       <img
         draggable="false"
         src={avatars[avatar]}
         alt={avatar}
-        className="w-12 rounded-full"
+        className="w-12 h-12 rounded-full"
       />
       <div className="flex flex-col ">
         <span>{name}</span>

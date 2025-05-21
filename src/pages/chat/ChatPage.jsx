@@ -24,7 +24,7 @@ export default function MainPage() {
   }, [data]);
 
   return (
-    <div className="flex h-screen bg-black text-white font-poppins p-4">
+    <div className="flex h-screen bg-black text-white font-poppins md:p-4">
       <Sidebar />
       <ChatArea />
       {isRightPanelOpen && <RightPanel data={data} />}

@@ -7,13 +7,15 @@ import { UserCard } from "@/components/Placeholders";
 import { Input, Box, Icon } from "@/components/ui";
 import UserList from "@/components/User/UserList";
 
-import { useDebounce, useChatRoomContext } from "@/hooks";
+import { useDebounce } from "@/hooks";
 import { useFetchUsersMutation } from "@/store";
 
-export default function SearchUserModal({ isOpen = false, onClose }) {
+export default function SearchUserModal({
+  isOpen = false,
+  onClose = () => {},
+  onSelectUser = () => {},
+}) {
   const debounce = useDebounce();
-  const { setChatUser } = useChatRoomContext();
-
   const [searchUsers, { data: users = [], reset: resetUserList, isLoading }] =
     useFetchUsersMutation();
 
@@ -24,7 +26,7 @@ export default function SearchUserModal({ isOpen = false, onClose }) {
   };
 
   const handleSelectUser = (user) => {
-    setChatUser(user);
+    onSelectUser(user);
     handleClose();
   };
 
