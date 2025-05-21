@@ -1,26 +1,26 @@
 import { useState } from "react";
 import { MdSearch } from "react-icons/md";
 
-import { Box, Icon } from "../ui";
-import Profile from "./Profile/Profile";
-import ChatList from "./ChatList/ChatList";
-import SearchUserModal from "../Modals/SearchUserModal";
+import { Box, Icon } from "@/components/ui";
+import UserProfile from "./UserProfile";
+import ChatList from "./ChatList";
+import SearchUserModal from "../modals/SearchUserModal";
 
 export default function Sidebar() {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <aside className="flex flex-col w-full h-full lg:p-0 gap-y-2 lg:max-w-80">
-      <Box className="relative">
+    <aside className=" flex flex-col">
+      <Box className="relative mb-2 px-3 py-2">
         <Icon
           active
           icon={MdSearch}
           onClick={() => setOpen(true)}
           className="absolute bg-transparent top-2 right-2"
         />
-        <Profile />
+        <UserProfile />
       </Box>
-      <Box className="h-full">
+      <Box className="flex-1 overflow-y-auto">
         <ChatList />
       </Box>
 

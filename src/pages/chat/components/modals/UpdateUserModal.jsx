@@ -3,10 +3,10 @@ import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { TbLoader2 } from "react-icons/tb";
 
-import Avatar from "../Avatar/Avatar";
-import Editor from "../common/Editor";
-import { ModalContainer } from "../common";
-import { Icon } from "../ui";
+import Avatar from "@/components/Avatar/Avatar";
+import Editor from "@/components/common/Editor";
+import { ModalContainer } from "@/components/common";
+import { Icon } from "@/components/ui";
 
 import { useUpdateUserMutation } from "@/store";
 
@@ -17,6 +17,7 @@ export default function UpdateUserModal({
   email,
   about,
   onClose,
+  isOpen = false,
 }) {
   const [updateUser, { isLoading, isSuccess, isError, error }] =
     useUpdateUserMutation();
@@ -39,9 +40,10 @@ export default function UpdateUserModal({
     }
   }, [isSuccess, isError, error]);
 
+  if (!isOpen) return null;
   return (
     <ModalContainer>
-      <div className="fixed inset-0 flex items-center justify-center overflow-hidden text-white bg-white bg-opacity-10">
+      <div className="fixed inset-0 flex items-center justify-center overflow-hidden text-white bg-white/10">
         <div className="fixed w-screen h-screen px-6 lg:px-4 py-8 bg-black lg:w-[384px] lg:h-fit lg:rounded-xl">
           <Icon
             active

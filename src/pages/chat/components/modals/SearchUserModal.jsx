@@ -2,10 +2,10 @@ import { BiSearchAlt } from "react-icons/bi";
 import { LuLoader } from "react-icons/lu";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-import { ModalContainer } from "../common";
-import { UserCard } from "../Placeholders";
-import { Input, Box, Icon } from "../ui";
-import UserList from "../User/UserList";
+import { ModalContainer } from "@/components/common";
+import { UserCard } from "@/components/Placeholders";
+import { Input, Box, Icon } from "@/components/ui";
+import UserList from "@/components/User/UserList";
 
 import { useDebounce, useChatRoomContext } from "@/hooks";
 import { useFetchUsersMutation } from "@/store";
@@ -47,8 +47,8 @@ export default function SearchUserModal({ isOpen = false, onClose }) {
   return (
     <ModalContainer>
       <div className="absolute inset-0 flex items-center justify-center bg-white/10">
-        <div className="absolute flex flex-col w-screen h-screen bg-black md:bg-transparent gap-y-1 md:w-auto md:h-auto">
-          <Box className="p-2 rounded-none md:rounded-2xl">
+        <div className="absolute flex flex-col w-full h-full bg-black md:bg-transparent gap-y-1 md:w-auto md:h-auto">
+          <Box className="p-2 rounded-none md:rounded-2xl pt-12 md:pt-2">
             <h1 className="flex pb-3 text-xl font-semibold text-white gap-x-2">
               <Icon active icon={IoMdArrowRoundBack} onClick={handleClose} />
               Search here
@@ -61,7 +61,7 @@ export default function SearchUserModal({ isOpen = false, onClose }) {
               onChange={handleChange}
             />
           </Box>
-          <Box className=" md:min-h-[404px] flex flex-col items-center w-full h-full scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800 text-white rounded-none md:rounded-2xl p-2 overflow-y-auto md:h-[404px]">
+          <Box className="md:min-h-[404px] flex flex-col items-center justify-center w-full h-full scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800 text-white rounded-none md:rounded-2xl p-2 overflow-y-auto md:h-[404px]">
             {content}
           </Box>
         </div>
@@ -73,7 +73,7 @@ export default function SearchUserModal({ isOpen = false, onClose }) {
 function NoResults() {
   return (
     <div className="py-12">
-      <div className="flex flex-col items-center justify-center pb-8">
+      <div className="flex flex-col items-center justify-center pb-4">
         <UserCard />
       </div>
       <div className="text-center">

@@ -2,11 +2,11 @@ import React from "react";
 import { BsTrash } from "react-icons/bs";
 import { MdArrowForward } from "react-icons/md";
 
-import { Icon } from "../ui";
+import { Icon } from "@/components/ui";
 
 import { usePropsContext } from "@/hooks";
 
-export default function RightPanel({ data }) {
+export default function ChatRightPanel({ data }) {
   const { avatars, setRightPanelOpen } = usePropsContext();
 
   return (

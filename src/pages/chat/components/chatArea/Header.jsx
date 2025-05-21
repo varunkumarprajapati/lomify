@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui";
 
 import { useChatRoomContext, usePropsContext } from "@/hooks";
 
-export default function Header({ data }) {
+export default function ChatHeader({ data }) {
   const [showToggle, setToggle] = useState(false);
   const { setChatUser, setMessages } = useChatRoomContext();
 
@@ -32,7 +32,7 @@ export default function Header({ data }) {
   const handleOptionClick = () => setToggle(!showToggle);
 
   return (
-    <div className="relative w-full h-16 p-6 bg-neutral-800">
+    <header className="relative w-full h-16 p-6 bg-neutral-800">
       <div className="flex items-center w-full h-full">
         <UserCard {...data} />
         <Icon
@@ -43,7 +43,7 @@ export default function Header({ data }) {
         />
       </div>
       {showToggle && <Options options={options} className="right-8 top-14" />}
-    </div>
+    </header>
   );
 }
 

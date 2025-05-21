@@ -3,7 +3,7 @@ import { ToastContainer, Bounce } from "react-toastify";
 
 import {
   LoginPage,
-  MainPage,
+  ChatPage,
   SignupPage,
   VerifyEmailPage,
   ForgotPasswordPage,
@@ -38,7 +38,7 @@ export default function App() {
             element={
               <PropsProvider>
                 <ChatRoomProvider>
-                  <MainPage />
+                  <ChatPage />
                 </ChatRoomProvider>
               </PropsProvider>
             }
