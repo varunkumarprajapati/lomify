@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const publicApi = createApi({
   reducerPath: "public",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_BASEURL + "/api/public",
+    baseUrl: import.meta.env.VITE_BASEURL + "/api/public",
   }),
 
   endpoints: (builder) => {

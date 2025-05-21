@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io(process.env.REACT_APP_BASEURL, {
+const socket = io(import.meta.env.VITE_BASEURL, {
   transports: ["websocket", "polling"],
   withCredentials: true,
 });

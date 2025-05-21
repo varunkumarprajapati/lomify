@@ -1,6 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "tailwind-scrollbar";
+@theme {
+  --font-poppins: "Poppins", serif;
+  --animate-loading: infinite loading 1.5s ease-in-out;
+  @keyframes loading {
+    0% {
+      transform: translateX(-200px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(200px);
+      opacity: 0;
+    }
+  }
+}
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -10,3 +23,39 @@ input:-webkit-autofill:active {
   box-shadow: none !important; /* Remove unwanted box shadow */
   transition: background-color 5000s ease-in-out 0s; /* Prevent background change */
 }
+
+/* 
+  colors: {
+    button: {
+      primary: {
+        DEFAULT: "#4F46E5",
+        hover: "#4338CA",
+        disabled: "#A5B4FC",
+      },
+      secondary: {
+        DEFAULT: "#10B981",
+        hover: "#059669",
+      },
+      success: {
+        DEFAULT: "#22C55E",
+        hover: "#16A34A",
+      },
+      danger: {
+        DEFAULT: "#EF4444",
+        hover: "#DC2626",
+      },
+      warning: {
+        DEFAULT: "#F59E0B",
+        hover: "#D97706",
+      },
+      info: {
+        DEFAULT: "#3B82F6",
+        hover: "#2563EB",
+      },
+      cancel: {
+        DEFAULT: "#4B5563",
+        hover: "#374151",
+      },
+    }
+  }
+*/

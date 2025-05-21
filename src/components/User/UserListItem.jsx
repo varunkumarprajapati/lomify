@@ -1,4 +1,4 @@
-const { usePropsContext } = require("../../hooks");
+import { usePropsContext } from "../../hooks";
 export default function UserListItem({ avatar, username, email, onClick }) {
   const { avatars } = usePropsContext();
 
