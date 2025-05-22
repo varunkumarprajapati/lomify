@@ -38,6 +38,7 @@ export {
   setMessages,
   addMessage,
   clearChatState,
+  setTyping,
 } from "@/pages/chat/store/chatSlice";
 
 export { store };

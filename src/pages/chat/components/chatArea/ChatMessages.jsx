@@ -1,8 +1,16 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import Message from "./Message";
 
-export default function ChatMessages({ messages }) {
+import { receiveMessage } from "@/socket";
+import { addMessage } from "@/store";
+
+export default function ChatMessages() {
+  const dispatch = useDispatch();
+  const messages = useSelector((state) => state.chat.messages);
   const chatArea = React.useRef(null);
+
   React.useEffect(() => {
     if (chatArea.current) {
       chatArea.current.scrollTo({
@@ -11,6 +19,12 @@ export default function ChatMessages({ messages }) {
       });
     }
   }, [messages]);
+
+  React.useEffect(() => {
+    receiveMessage((data) => {
+      dispatch(addMessage(data));
+    });
+  }, [dispatch]);
 
   return (
     <div

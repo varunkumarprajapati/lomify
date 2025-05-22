@@ -1,8 +1,15 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { MdSend, MdAdd } from "react-icons/md";
-import { Input, Icon } from "@/components/ui";
 
-export default function Footer({ onSubmit }) {
+import { Input, Icon } from "@/components/ui";
+import { addMessage } from "@/store";
+import { sendMessage } from "@/socket";
+
+export default function Footer() {
+  const dispatch = useDispatch();
+  const receiverId = useSelector((state) => state.chat.selectedUser._id);
+
   const [message, setMessage] = React.useState("");
   const [isTyping, setTyping] = React.useState(false);
 
@@ -16,7 +23,16 @@ export default function Footer({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (message.length) onSubmit({ content: message });
+    if (!message.length) return;
+
+    const msg = {
+      content: message,
+      receiverId,
+    };
+
+    dispatch(addMessage(msg));
+    sendMessage(msg);
+
     setTyping(false);
     setMessage("");
   };

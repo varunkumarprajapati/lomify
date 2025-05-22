@@ -1,22 +1,19 @@
 import React from "react";
 import Sidebar from "./components/sidebar/Sidebar";
 import ChatArea from "./components/chatArea/ChatArea";
-import RightPanel from "./components/RightPanel";
+import ChatRightPanel from "./components/ChatRightPanel";
 
 import socket from "@/socket";
 
-import { useFetchUserQuery } from "@/store";
 import { usePropsContext } from "@/hooks";
+import { useFetchUserQuery } from "@/store";
 
-export default function MainPage() {
+export default function ChatPage() {
   const { data } = useFetchUserQuery();
   const { isRightPanelOpen } = usePropsContext();
 
   React.useEffect(() => {
-    if (data) {
-      socket.connect();
-      socket.emit("subscribe", data._id);
-    }
+    if (data) socket.connect();
 
     return () => {
       socket.disconnect();
@@ -27,7 +24,7 @@ export default function MainPage() {
     <div className="flex h-screen bg-black text-white font-poppins md:p-4">
       <Sidebar />
       <ChatArea />
-      {isRightPanelOpen && <RightPanel data={data} />}
+      <ChatRightPanel isOpen={isRightPanelOpen} />
     </div>
   );
 }

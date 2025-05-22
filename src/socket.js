@@ -1,17 +1,22 @@
 import { io } from "socket.io-client";
 
 const socket = io(import.meta.env.VITE_BASEURL, {
-  transports: ["websocket", "polling"],
   withCredentials: true,
 });
 
-const getSocketId = () =>
-  socket.on("connect", () => {
-    const { id } = socket;
-    console.log(id);
+const sendMessage = ({ receiverId, content }) => {
+  socket.emit("message:send", { receiverId, content }, (res) => {
+    console.log(res);
   });
-const socketError = () =>
+};
+
+const receiveMessage = (cb) => {
+  socket.on("message:receive", cb);
+};
+
+const socketError = () => {
   socket.on("connect_error", (err) => console.error(err));
+};
 
 export default socket;
-export { getSocketId, socketError };
+export { socketError, sendMessage, receiveMessage };

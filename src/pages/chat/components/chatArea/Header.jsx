@@ -48,7 +48,7 @@ export default function ChatHeader() {
   );
 }
 
-function UserCard({ avatar, name, className }) {
+function UserCard({ avatar, name, className = "", typing = false }) {
   const { avatars, setRightPanelOpen } = usePropsContext();
 
   return (
@@ -65,7 +65,7 @@ function UserCard({ avatar, name, className }) {
       <div className="flex flex-col ">
         <span>{name}</span>
         <span className="text-xs text-neutral-400">
-          {true ? "typing..." : ""}
+          {typing ? "typing..." : ""}
         </span>
       </div>
     </div>

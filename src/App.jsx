@@ -12,7 +12,6 @@ import {
 
 import PrivateRoute from "./routes/PrivateRoute";
 import { PropsProvider } from "./context/PropsContext";
-import { ChatRoomProvider } from "./context/ChatRoomContext";
 
 export default function App() {
   return (
@@ -37,9 +36,7 @@ export default function App() {
             index
             element={
               <PropsProvider>
-                <ChatRoomProvider>
-                  <ChatPage />
-                </ChatRoomProvider>
+                <ChatPage />
               </PropsProvider>
             }
           />
