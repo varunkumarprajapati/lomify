@@ -21,6 +21,13 @@ const chatSlice = createSlice({
     clearChatState() {
       return initialState;
     },
+    updateMessageId(state, { payload }) {
+      const index = state.messages.findIndex(
+        (msg) => payload.tempId === msg._id
+      );
+      const msg = state.messages[index];
+      state.messages[index] = { ...msg, _id: payload._id };
+    },
   },
 });
 
@@ -30,6 +37,7 @@ export const {
   addMessage,
   clearChatState,
   setTyping,
+  updateMessageId,
 } = chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

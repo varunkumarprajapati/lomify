@@ -5,6 +5,7 @@ import { userApi } from "./apis/userApi";
 import { authApi } from "./apis/authApi";
 import { publicApi } from "./apis/publicApi";
 import { chatReducer } from "@/pages/chat/store/chatSlice";
+import messageMiddleware from "@/pages/chat/store/messageMiddleware";
 
 const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ const store = configureStore({
     return getDefaultMiddleware()
       .concat(userApi.middleware)
       .concat(authApi.middleware)
-      .concat(publicApi.middleware);
+      .concat(publicApi.middleware)
+      .concat(messageMiddleware);
   },
 });
 
@@ -39,6 +41,7 @@ export {
   addMessage,
   clearChatState,
   setTyping,
+  updateMessageId,
 } from "@/pages/chat/store/chatSlice";
 
 export { store };

@@ -1,23 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdSend, MdAdd } from "react-icons/md";
+import { v4 as uuidv4 } from "uuid";
 
 import { Input, Icon } from "@/components/ui";
-import { addMessage } from "@/store";
-import { sendMessage } from "@/socket";
+import { addMessage, setTyping } from "@/store";
 
 export default function Footer() {
   const dispatch = useDispatch();
-  const receiverId = useSelector((state) => state.chat.selectedUser._id);
+  const { selectedUser, isTyping } = useSelector((state) => state.chat);
 
   const [message, setMessage] = React.useState("");
-  const [isTyping, setTyping] = React.useState(false);
 
   const handleChange = (e) => {
     const { value } = e.target;
-    setTyping(true);
+    dispatch(setTyping(true));
     setMessage(value);
-    message.length && setInterval(() => setTyping(false), 3000);
+    message.length && setInterval(() => dispatch(setTyping(false)), 3000);
     isTyping && clearInterval();
   };
 
@@ -26,14 +25,14 @@ export default function Footer() {
     if (!message.length) return;
 
     const msg = {
+      _id: uuidv4(),
       content: message,
-      receiverId,
+      receiverId: selectedUser._id,
+      isSender: true,
     };
 
     dispatch(addMessage(msg));
-    sendMessage(msg);
-
-    setTyping(false);
+    dispatch(setTyping(false));
     setMessage("");
   };
 

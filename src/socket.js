@@ -4,14 +4,16 @@ const socket = io(import.meta.env.VITE_BASEURL, {
   withCredentials: true,
 });
 
-const sendMessage = ({ receiverId, content }) => {
-  socket.emit("message:send", { receiverId, content }, (res) => {
-    console.log(res);
-  });
+const sendMessage = (data, cb) => {
+  socket.emit("message:send", data, cb);
 };
 
-const receiveMessage = (cb) => {
+const onReceiveMessage = (cb) => {
   socket.on("message:receive", cb);
+};
+
+const onUpdateMessageId = (cb) => {
+  socket.on("message:update-id", cb);
 };
 
 const socketError = () => {
@@ -19,4 +21,4 @@ const socketError = () => {
 };
 
 export default socket;
-export { socketError, sendMessage, receiveMessage };
+export { socketError, sendMessage, onReceiveMessage, onUpdateMessageId };

@@ -1,14 +1,14 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import Message from "./Message";
+import MessageBubble from "./MessageBubble";
 
-import { receiveMessage } from "@/socket";
-import { addMessage } from "@/store";
+import { onReceiveMessage, onUpdateMessageId } from "@/socket";
+import { addMessage, updateMessageId } from "@/store";
 
 export default function ChatMessages() {
   const dispatch = useDispatch();
-  const messages = useSelector((state) => state.chat.messages);
+  const { messages } = useSelector((state) => state.chat);
   const chatArea = React.useRef(null);
 
   React.useEffect(() => {
@@ -21,19 +21,23 @@ export default function ChatMessages() {
   }, [messages]);
 
   React.useEffect(() => {
-    receiveMessage((data) => {
+    onReceiveMessage((data) => {
       dispatch(addMessage(data));
+    });
+
+    onUpdateMessageId((data) => {
+      dispatch(updateMessageId(data));
     });
   }, [dispatch]);
 
   return (
     <div
       ref={chatArea}
-      className="w-full h-full overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
+      className="w-full pt-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
     >
-      {messages.map((message, index) => (
-        <Message key={index} {...message} />
-      ))}
+      {messages.map((message) => {
+        return <MessageBubble key={message._id} {...message} />;
+      })}
     </div>
   );
 }
