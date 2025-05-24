@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
+import { twMerge } from "tailwind-merge";
+import { MdArrowBack } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 import { Options } from "@/components/common";
 import { Icon } from "@/components/ui";
 
-import { usePropsContext } from "@/hooks";
 import { clearChatState } from "@/store";
-import { twMerge } from "tailwind-merge";
+import useChatContext from "../../hooks/useChatContext";
+import { avatars } from "../../constants/avatarConstant";
+import useMobile from "../../hooks/useMobile";
 
 export default function ChatHeader() {
   const dispatch = useDispatch();
+  const isMobile = useMobile();
+  const { setChatting } = useChatContext();
   const selectedUser = useSelector((state) => state.chat.selectedUser);
   const [showToggle, setToggle] = useState(false);
 
@@ -35,7 +40,14 @@ export default function ChatHeader() {
   const handleOptionClick = () => setToggle(!showToggle);
 
   return (
-    <header className="relative flex items-center px-5 py-3 bg-neutral-800">
+    <header className="relative flex items-center pl-2 md:pl-5 pr-5 py-3 bg-neutral-800">
+      <Icon
+        active
+        icon={MdArrowBack}
+        visibility={isMobile}
+        onClick={() => setChatting(false)}
+        className="mr-2"
+      />
       <UserCard {...selectedUser} className="flex-1" />
       <Icon
         active
@@ -49,7 +61,7 @@ export default function ChatHeader() {
 }
 
 function UserCard({ avatar, name, className = "", typing = false }) {
-  const { avatars, setRightPanelOpen } = usePropsContext();
+  const { setRightPanelOpen } = useChatContext();
 
   return (
     <div

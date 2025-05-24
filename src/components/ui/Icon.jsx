@@ -8,8 +8,10 @@ const Icon = ({
   type = "button",
   plain = false,
   active = false,
+  visibility = true,
   ...props
 }) => {
+  if (!visibility) return null;
   return (
     <button
       type={type}

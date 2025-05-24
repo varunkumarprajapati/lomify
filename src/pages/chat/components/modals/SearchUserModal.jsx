@@ -9,6 +9,7 @@ import UserList from "@/components/User/UserList";
 
 import { useDebounce } from "@/hooks";
 import { useFetchUsersMutation } from "@/store";
+import useChatContext from "../../hooks/useChatContext";
 
 export default function SearchUserModal({
   isOpen = false,
@@ -16,6 +17,7 @@ export default function SearchUserModal({
   onSelectUser = () => {},
 }) {
   const debounce = useDebounce();
+  const { setChatting } = useChatContext();
   const [searchUsers, { data: users = [], reset: resetUserList, isLoading }] =
     useFetchUsersMutation();
 
@@ -26,6 +28,7 @@ export default function SearchUserModal({
   };
 
   const handleSelectUser = (user) => {
+    setChatting(true);
     onSelectUser(user);
     handleClose();
   };

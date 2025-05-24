@@ -4,14 +4,15 @@ import { MdArrowForward } from "react-icons/md";
 
 import { Icon } from "@/components/ui";
 
-import { usePropsContext } from "@/hooks";
+import useChatContext from "../hooks/useChatContext";
+import { avatars } from "../constants/avatarConstant";
 import { useSelector } from "react-redux";
 
-export default function ChatRightPanel({ isOpen }) {
+export default function ChatRightPanel() {
   const { selectedUser } = useSelector((state) => state.chat);
-  const { avatars, setRightPanelOpen } = usePropsContext();
+  const { isRightPanelOpen, setRightPanelOpen } = useChatContext();
 
-  if (!isOpen) return null;
+  if (!isRightPanelOpen) return null;
   return (
     <div className="md:ml-2 absolute inset-0 flex-col items-center justify-center h-full overflow-hidden lg:relative lg:rounded-lg lg:min-w-96 bg-neutral-900">
       <div className="flex items-center w-full p-4 text-lg gap-x-2 text-neutral-100 bg-neutral-800">

@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { selectedUser: null, messages: [], isTyping: false };
+const initialState = {
+  selectedUser: null,
+  messages: [],
+  isTyping: false,
+  chatList: [],
+};
 
 const chatSlice = createSlice({
   name: "chat",
@@ -18,8 +23,10 @@ const chatSlice = createSlice({
     setTyping(state, action) {
       state.isTyping = action.payload;
     },
-    clearChatState() {
-      return initialState;
+    clearChatState(state) {
+      state.messages = [];
+      state.selectedUser = null;
+      state.isTyping = false;
     },
     updateMessageId(state, { payload }) {
       const index = state.messages.findIndex(
@@ -27,6 +34,9 @@ const chatSlice = createSlice({
       );
       const msg = state.messages[index];
       state.messages[index] = { ...msg, _id: payload._id };
+    },
+    setChatList(state, action) {
+      state.chatList = action.payload;
     },
   },
 });
@@ -38,6 +48,7 @@ export const {
   clearChatState,
   setTyping,
   updateMessageId,
+  setChatList,
 } = chatSlice.actions;
 
 export const chatReducer = chatSlice.reducer;

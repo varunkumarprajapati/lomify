@@ -6,9 +6,15 @@ import Footer from "./Footer";
 import ChatMessages from "./ChatMessages";
 import { Box } from "@/components/ui";
 import ChatSVG from "@/assets/chat.svg";
+import useMobile from "../../hooks/useMobile";
+import useChatContext from "../../hooks/useChatContext";
 
 export default function ChatArea() {
+  const isMobile = useMobile();
+  const { isChatting } = useChatContext();
   const { selectedUser } = useSelector((state) => state.chat);
+
+  if (isMobile && !isChatting) return null;
 
   return (
     <Box className="md:ml-2 flex-1 h-full overflow-hidden md:block rounded-none md:rounded-lg">

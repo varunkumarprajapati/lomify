@@ -1,7 +1,6 @@
-import { usePropsContext } from "@/hooks";
-export default function UserListItem({ avatar, username, email, onClick }) {
-  const { avatars } = usePropsContext();
+import { avatars } from "@/pages/chat/constants/avatarConstant";
 
+export default function UserListItem({ avatar, username, email, onClick }) {
   return (
     <li
       className="flex items-center justify-start w-full px-4 py-2 transition-colors cursor-pointer select-none rounded-xl gap-x-4 hover:bg-neutral-800"

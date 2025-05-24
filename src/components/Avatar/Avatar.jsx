@@ -3,13 +3,13 @@ import { twMerge } from "tailwind-merge";
 import { MdEdit } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
-import usePropsContext from "@/hooks/use-PropsContext";
 import { Icon } from "../ui";
 import AvatarCarousel from "../AvatarCarousel/AvatarCarousel";
 
+import { avatars } from "@/pages/chat/constants/avatarConstant";
+
 export default function Avatar({ className, avatar, onSubmit }) {
   const [isAvatarUpdating, setAvatarUpdating] = useState(false);
-  const { avatars } = usePropsContext();
 
   const handleEditClick = () => {
     setAvatarUpdating(!isAvatarUpdating);

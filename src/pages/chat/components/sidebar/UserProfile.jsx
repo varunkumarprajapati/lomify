@@ -3,12 +3,11 @@ import { useState } from "react";
 import UpdateUserModal from "@/pages/chat/components/modals/UpdateUserModal";
 
 import { useFetchUserQuery } from "@/store";
-import usePropsContext from "@/hooks/use-PropsContext";
+import { avatars } from "../../constants/avatarConstant";
 
 export default function UserProfile() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: user } = useFetchUserQuery();
-  const { avatars } = usePropsContext();
 
   const handleModalClose = (e) => {
     e.stopPropagation();
