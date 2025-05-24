@@ -7,8 +7,8 @@ export default function useMobile(breakpoint = 768) {
 
   React.useEffect(() => {
     const handleResize = () => setMobile(window.innerWidth < 745);
-    document.addEventListener("resize", handleResize);
-    return () => document.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [breakpoint]);
 
   return isMobile;

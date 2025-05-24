@@ -29,6 +29,7 @@ export default function ChatHeader() {
       onClick: () => {
         setToggle(false);
         dispatch(clearChatState());
+        setChatting(false);
       },
     },
     {
@@ -38,14 +39,18 @@ export default function ChatHeader() {
   ];
 
   const handleOptionClick = () => setToggle(!showToggle);
-
+  const handleBackClick = () => {
+    setChatting(false);
+    dispatch(clearChatState());
+  };
+  
   return (
     <header className="relative flex items-center pl-2 md:pl-5 pr-5 py-3 bg-neutral-800">
       <Icon
         active
         icon={MdArrowBack}
         visibility={isMobile}
-        onClick={() => setChatting(false)}
+        onClick={handleBackClick}
         className="mr-2"
       />
       <UserCard {...selectedUser} className="flex-1" />
