@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { avatars } from "../../constants/avatarConstant";
 import useChatContext from "../../hooks/useChatContext";
+import { getConversation } from "../../services/chatDb";
 
 export default function ChatList() {
   const dispatch = useDispatch();
@@ -11,9 +12,10 @@ export default function ChatList() {
   const chatList = useSelector((s) => s.chat.chatList);
   const { data = [], isSuccess } = useFetchChatListQuery();
 
-  const handleClick = (user) => {
+  const handleClick = async (user) => {
+    const messages = await getConversation(user._id);
     setChatting(true);
-    dispatch(setSelectedUser(user));
+    dispatch(setSelectedUser({ user, messages }));
   };
 
   React.useEffect(() => {
@@ -40,7 +42,6 @@ function ChatListItem({ username, avatar, lastMessage, timestamp, onClick }) {
     minute: "2-digit",
     hour12: true,
   });
-
   return (
     <li
       className="relative flex items-center justify-start w-full px-4 py-2 transition-colors cursor-pointer select-none gap-x-4 hover:bg-neutral-800"

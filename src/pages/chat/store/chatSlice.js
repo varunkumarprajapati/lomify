@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
 const initialState = {
   selectedUser: null,
@@ -12,10 +12,9 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     setSelectedUser(state, action) {
-      state.selectedUser = action.payload;
-    },
-    setMessages(state, action) {
-      state.messages = action.payload;
+      state.selectedUser = action.payload.user;
+      state.messages = action.payload.messages;
+      state.isTyping = false;
     },
     addMessage(state, action) {
       state.messages.push(action.payload);
@@ -39,11 +38,27 @@ const chatSlice = createSlice({
       state.chatList = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addMatcher(isAnyOf(addMessage), (state, action) => {
+      const id = action.payload.isSender
+        ? action.payload.receiverId
+        : action.payload.senderId;
+
+      const index = state.chatList.findIndex(({ _id }) => _id === id);
+      const user = state.chatList[index];
+
+      state.chatList.splice(index, 1);
+
+      user.lastMessage = action.payload.content;
+      user.timestamp = action.payload.createdAt;
+
+      state.chatList.unshift(user);
+    });
+  },
 });
 
 export const {
   setSelectedUser,
-  setMessages,
   addMessage,
   clearChatState,
   setTyping,

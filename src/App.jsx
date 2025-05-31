@@ -11,11 +11,21 @@ import {
 } from "./pages";
 
 import PrivateRoute from "./routes/PrivateRoute";
-import { PropsProvider } from "./context/PropsContext";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route index element={<ChatPage />} />
+        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+      </Routes>
+
       <ToastContainer
         position="bottom-left"
         autoClose={3000}
@@ -29,24 +39,6 @@ export default function App() {
         theme="dark"
         transition={Bounce}
       />
-
-      <Routes>
-        <Route path="/" element={<PrivateRoute />}>
-          <Route
-            index
-            element={
-              <PropsProvider>
-                <ChatPage />
-              </PropsProvider>
-            }
-          />
-        </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
-      </Routes>
     </BrowserRouter>
   );
 }

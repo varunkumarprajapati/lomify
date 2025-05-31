@@ -43,7 +43,7 @@ export default function ChatHeader() {
     setChatting(false);
     dispatch(clearChatState());
   };
-  
+
   return (
     <header className="relative flex items-center pl-2 md:pl-5 pr-5 py-3 bg-neutral-800">
       <Icon
@@ -82,7 +82,7 @@ function UserCard({ avatar, name, className = "", typing = false }) {
       <div className="flex flex-col ">
         <span>{name}</span>
         <span className="text-xs text-neutral-400">
-          {typing ? "typing..." : ""}
+          {typing ? "typing..." : "online"}
         </span>
       </div>
     </div>

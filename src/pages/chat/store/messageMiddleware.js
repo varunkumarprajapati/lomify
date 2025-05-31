@@ -1,20 +1,13 @@
 import { sendMessage } from "@/socket";
 import { addMessage } from "@/store";
 
-const messageMiddleware = () => {
-  return function (next) {
-    return function (action) {
-      next(action);
+const messageMiddleware = () => (next) => (action) => {
+  next(action);
 
-      if (addMessage.match(action)) {
-        const { isSender, ...payload } = action.payload;
-        if (isSender)
-          sendMessage(payload, (res) => {
-            console.log(res);
-          });
-      }
-    };
-  };
+  if (addMessage.match(action)) {
+    const { isSender, ...payload } = action.payload;
+    if (isSender) sendMessage(payload, (ack) => {});
+  }
 };
 
 export default messageMiddleware;

@@ -37,11 +37,13 @@ export {
   useResetPasswordMutation,
 } from "./apis/authApi";
 export { useFetchUsersMutation } from "./apis/publicApi";
-export { useFetchChatListQuery } from "@/pages/chat/store/chatApi";
+export {
+  useFetchChatListQuery,
+  useFetchConversationsQuery,
+} from "@/pages/chat/store/chatApi";
 
 export {
   setSelectedUser,
-  setMessages,
   addMessage,
   clearChatState,
   setTyping,

@@ -11,9 +11,12 @@ const chatApi = createApi({
       fetchChatList: builder.query({
         query: () => "/chat-list",
       }),
+      fetchConversations: builder.query({
+        query: (lastSync) => `/?lastSync=${lastSync}`,
+      }),
     };
   },
 });
 
-export const { useFetchChatListQuery } = chatApi;
+export const { useFetchChatListQuery, useFetchConversationsQuery } = chatApi;
 export { chatApi };

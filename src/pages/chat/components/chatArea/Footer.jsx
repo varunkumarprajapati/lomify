@@ -4,21 +4,15 @@ import { MdSend, MdAdd } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 
 import { Input, Icon } from "@/components/ui";
-import { addMessage, setTyping } from "@/store";
+import { addMessage } from "@/store";
 
 export default function Footer() {
   const dispatch = useDispatch();
-  const { selectedUser, isTyping } = useSelector((state) => state.chat);
+  const { selectedUser } = useSelector((state) => state.chat);
 
   const [message, setMessage] = React.useState("");
 
-  const handleChange = (e) => {
-    const { value } = e.target;
-    dispatch(setTyping(true));
-    setMessage(value);
-    message.length && setInterval(() => dispatch(setTyping(false)), 3000);
-    isTyping && clearInterval();
-  };
+  const handleChange = (e) => setMessage(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,10 +23,10 @@ export default function Footer() {
       content: message,
       receiverId: selectedUser._id,
       isSender: true,
+      createdAt: new Date().toString(),
     };
-
+    
     dispatch(addMessage(msg));
-    dispatch(setTyping(false));
     setMessage("");
   };
 
