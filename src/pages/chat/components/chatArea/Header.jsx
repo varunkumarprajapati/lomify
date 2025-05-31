@@ -45,7 +45,7 @@ export default function ChatHeader() {
   };
 
   return (
-    <header className="relative flex items-center pl-2 md:pl-5 pr-5 py-3 bg-neutral-800">
+    <header className="sticky top-0 flex items-center pl-2 md:pl-5 pr-5 py-3 bg-neutral-800">
       <Icon
         active
         icon={MdArrowBack}

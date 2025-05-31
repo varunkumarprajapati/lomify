@@ -48,14 +48,14 @@ export default function UpdateUserModal({
           <Icon
             active
             icon={RxCross2}
-            className="absolute lg:top-4 right-4 top-6 "
+            className="absolute lg:top-4 right-4 top-12"
             onClick={onClose}
           />
 
           {isLoading && (
             <Icon
               icon={TbLoader2}
-              className="absolute p-1 rounded-full lg:top-4 top-6 right-14 animate-spin bg-neutral-700"
+              className="absolute p-1 rounded-full lg:top-4 top-12 right-14 animate-spin bg-neutral-700"
             />
           )}
 

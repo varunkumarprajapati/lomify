@@ -27,7 +27,7 @@ export default function ChatPage() {
 
   return (
     <ChatProvider>
-      <div className="flex h-screen bg-black text-white font-poppins md:p-4">
+      <div className="flex h-full bg-black text-white font-poppins md:p-4">
         <Sidebar />
         <ChatArea />
         <ChatRightPanel />

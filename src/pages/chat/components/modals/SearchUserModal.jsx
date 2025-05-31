@@ -53,9 +53,9 @@ export default function SearchUserModal({
     <ModalContainer>
       <div className="absolute inset-0 flex items-center justify-center bg-white/10">
         <div className="absolute flex flex-col w-full h-full bg-black md:bg-transparent gap-y-1 md:w-auto md:h-auto">
-          <Box className="p-2 rounded-none md:rounded-2xl pt-12 md:pt-2">
-            <h1 className="flex pb-3 text-xl font-semibold text-white gap-x-2">
-              <Icon active icon={IoMdArrowRoundBack} onClick={handleClose} />
+          <Box className="p-2 rounded-none md:rounded-2xl md:pt-2">
+            <h1 className="flex pb-3 text-2xl md:text-xl font-semibold text-white gap-x-2">
+              <Icon active icon={IoMdArrowRoundBack} onClick={handleClose} className="w-8 md:w-fit md:h-fit"/>
               Search here
             </h1>
 
@@ -66,7 +66,7 @@ export default function SearchUserModal({
               onChange={handleChange}
             />
           </Box>
-          <Box className="md:min-h-[404px] flex flex-col items-center justify-center w-full h-full scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800 text-white rounded-none md:rounded-2xl p-2 overflow-y-auto md:h-[404px]">
+          <Box className="md:min-h-[404px] flex flex-col justify-start w-full h-full scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800 text-white rounded-none md:rounded-2xl p-2 overflow-y-auto md:h-[404px]">
             {content}
           </Box>
         </div>

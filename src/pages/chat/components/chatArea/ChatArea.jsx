@@ -19,7 +19,7 @@ export default function ChatArea() {
   return (
     <Box className="md:ml-2 flex-1 h-full overflow-hidden md:block rounded-none md:rounded-lg">
       {selectedUser ? (
-        <main className="h-full flex flex-col">
+        <main className="relative h-full flex flex-col">
           <Header />
           <ChatMessages />
           <Footer />
