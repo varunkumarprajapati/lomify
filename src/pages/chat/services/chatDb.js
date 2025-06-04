@@ -7,16 +7,23 @@ db.version(1).stores({
 });
 
 export const saveMessages = async (messages) => {
-  await db.messages.bulkPut(messages);
+  try {
+    await db.messages.bulkPut(messages);
+  } catch (error) {
+    console.error("Failed to set messages in bulk: ", error);
+  }
 };
 
 export const getConversation = async (id) => {
-  const data = await Promise.all([
-    db.messages.where("senderId").equals(id).toArray(),
-    db.messages.where("receiverId").equals(id).toArray(),
-  ]);
-
-  return [...data[0], ...data[1]].sort(
-    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-  );
+  try {
+    return await db.messages
+      .where("senderId")
+      .equals(id)
+      .or("receiverId")
+      .equals(id)
+      .sortBy("createdAt");
+  } catch (error) {
+    console.error("Failed to fetch conversation:", error);
+    return [];
+  }
 };

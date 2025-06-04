@@ -5,17 +5,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { avatars } from "../../constants/avatarConstant";
 import useChatContext from "../../hooks/useChatContext";
 import { getConversation } from "../../services/chatDb";
+import { useDebounce } from "@/hooks";
 
 export default function ChatList() {
   const dispatch = useDispatch();
+  const debounce = useDebounce();
   const { setChatting } = useChatContext();
   const chatList = useSelector((s) => s.chat.chatList);
   const { data = [], isSuccess } = useFetchChatListQuery();
 
-  const handleClick = async (user) => {
-    const messages = await getConversation(user._id);
-    setChatting(true);
-    dispatch(setSelectedUser({ user, messages }));
+  const handleClick = (user) => {
+    debounce(async () => {
+      const messages = await getConversation(user._id);
+      setChatting(true);
+      dispatch(setSelectedUser({ user, messages }));
+    }, 300);
   };
 
   React.useEffect(() => {

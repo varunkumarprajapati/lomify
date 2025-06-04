@@ -10,6 +10,7 @@ import SearchUserModal from "../modals/SearchUserModal";
 import useMobile from "../../hooks/useMobile";
 import useChatContext from "../../hooks/useChatContext";
 import { setSelectedUser } from "@/store";
+import { getConversation } from "@/pages/chat/services/chatDb";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -17,8 +18,9 @@ export default function Sidebar() {
   const { isChatting } = useChatContext();
   const [isOpen, setOpen] = useState(false);
 
-  const handleSelectUser = (user) => {
-    dispatch(setSelectedUser(user));
+  const handleSelectUser = async (user) => {
+    const messages = await getConversation(user._id);
+    dispatch(setSelectedUser({ user, messages }));
   };
 
   if (isMobile && isChatting) return null;

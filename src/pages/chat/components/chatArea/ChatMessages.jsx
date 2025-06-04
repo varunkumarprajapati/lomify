@@ -33,7 +33,7 @@ export default function ChatMessages() {
   return (
     <div
       ref={chatArea}
-      className="w-full pt-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
+      className="w-full pt-4 px-2 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-700 scrollbar-track-neutral-800"
     >
       {messages.map((message) => {
         return <MessageBubble key={message._id} {...message} />;
