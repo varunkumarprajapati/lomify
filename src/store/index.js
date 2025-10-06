@@ -35,6 +35,7 @@ export {
   useVerifyEmailQuery,
   useLazyForgotPasswordQuery,
   useResetPasswordMutation,
+  useGoogleLoginMutation,
 } from "./apis/authApi";
 export { useFetchUsersMutation } from "./apis/publicApi";
 export {
