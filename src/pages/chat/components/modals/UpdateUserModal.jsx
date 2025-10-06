@@ -9,6 +9,8 @@ import { ModalContainer } from "@/components/common";
 import { Icon } from "@/components/ui";
 
 import { useUpdateUserMutation } from "@/store";
+import { Button } from "@/components/ui";
+import { useLogoutMutation } from "@/store";
 
 export default function UpdateUserModal({
   avatar,
@@ -19,8 +21,25 @@ export default function UpdateUserModal({
   onClose,
   isOpen = false,
 }) {
-  const [updateUser, { isLoading, isSuccess, isError, error }] =
-    useUpdateUserMutation();
+  const [
+    updateUser,
+    {
+      isLoading: isUpdating,
+      isSuccess: isUpdateSuccess,
+      isError: isUpdateError,
+      error: updateError,
+    },
+  ] = useUpdateUserMutation();
+
+  const [
+    logout,
+    {
+      isLoading: isLoggingOut,
+      isSuccess: isLogoutSuccess,
+      isError: isLogoutError,
+      error: logoutError,
+    },
+  ] = useLogoutMutation();
 
   const handleAvatarSubmit = (avatarName) => {
     if (avatar === avatarName) return toast.info("Same avatar selected.");
@@ -30,17 +49,35 @@ export default function UpdateUserModal({
   const handleSubmit = ({ name, value }) => updateUser({ [name]: value });
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success("Profile updated successfully.");
-    }
-
-    if (isError) {
-      if (error.status === 409) toast.error(error?.data?.message);
+    if (isUpdateSuccess) toast.success("Profile updated successfully.");
+    if (isUpdateError) {
+      if (updateError?.status === 409) toast.error(updateError?.data?.message);
       else toast.error("Something went wrong.");
     }
-  }, [isSuccess, isError, error]);
+
+    if (isLogoutSuccess) toast.info("Logged out successfully.");
+
+    if (isLogoutError) toast.error("Logout failed. Try again.");
+  }, [
+    isUpdateSuccess,
+    isUpdateError,
+    updateError,
+    isLogoutSuccess,
+    isLogoutError,
+  ]);
 
   if (!isOpen) return null;
+
+  const handleClick = async () => {
+    try {
+      await logout().unwrap();
+      window.location.reload(); // simplest logout reset
+    } catch (err) {
+      toast.error("Logout failed.");
+      console.error("Logout error:", err);
+    }
+  };
+
   return (
     <ModalContainer>
       <div className="fixed inset-0 flex items-center justify-center overflow-hidden text-white bg-white/10">
@@ -52,7 +89,7 @@ export default function UpdateUserModal({
             onClick={onClose}
           />
 
-          {isLoading && (
+          {isUpdating && (
             <Icon
               icon={TbLoader2}
               className="absolute p-1 rounded-full lg:top-4 top-12 right-14 animate-spin bg-neutral-700"
@@ -69,8 +106,8 @@ export default function UpdateUserModal({
                 name="name"
                 label="Name"
                 giveValue={name}
-                isError={isError}
-                loading={isLoading}
+                isError={isUpdateError}
+                loading={isUpdating}
                 onSubmit={handleSubmit}
               >
                 <p>{name}</p>
@@ -80,8 +117,8 @@ export default function UpdateUserModal({
                 name="username"
                 label="Username"
                 giveValue={username}
-                isError={isError}
-                loading={isLoading}
+                isError={isUpdateError}
+                loading={isUpdating}
                 onSubmit={handleSubmit}
               >
                 <p>{username}</p>
@@ -91,12 +128,18 @@ export default function UpdateUserModal({
                 name="about"
                 label="About"
                 giveValue={about}
-                isError={isError}
-                loading={isLoading}
+                isError={isUpdateError}
+                loading={isUpdating}
                 onSubmit={handleSubmit}
               >
                 <p>{about}</p>
               </Editor>
+              <Button
+                className="bg-[#FF4136] mt-1 w-full text-[#FFFFFF]"
+                onClick={handleClick}
+              >
+                Logout
+              </Button>
             </div>
           </div>
         </div>

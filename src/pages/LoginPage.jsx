@@ -10,7 +10,7 @@ import BGImage from "../assets/background.webp";
 import { useLoginMutation } from "../store";
 
 import GoogleAuthButton from "../components/auth/GoogleAuthButton";
-import FacebookButton from "../components/auth/FacebookButton";
+// import FacebookButton from "../components/auth/FacebookButton";
 
 export default function LoginPage() {
   const navigate = useNavigate();

@@ -51,6 +51,14 @@ const authApi = createApi({
           credentials: "include", //same as axios withCredentials:true
         }),
       }),
+
+      logout: builder.mutation({
+        query: () => ({
+          url: "/logout",
+          method: "POST",
+          credentials: "include", // ensures cookie/session cleared on server
+        }),
+      }),
     };
   },
 });
@@ -62,5 +70,6 @@ export const {
   useLazyForgotPasswordQuery,
   useResetPasswordMutation,
   useGoogleLoginMutation,
+  useLogoutMutation,
 } = authApi;
 export { authApi };
