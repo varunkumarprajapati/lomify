@@ -9,6 +9,9 @@ import BGImage from "../assets/background.webp";
 
 import { useLoginMutation } from "../store";
 
+import GoogleAuthButton from "../components/auth/GoogleAuthButton";
+import FacebookButton from "../components/auth/FacebookButton";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const [login, { isLoading, isSuccess, isError, error }] = useLoginMutation();
@@ -103,6 +106,13 @@ export default function LoginPage() {
                 </Form>
               )}
             </Formik>
+
+            <div className="lg:w-64 w-72 py-2 mt-4">
+              <div className="">
+                <GoogleAuthButton />
+                {/* <FacebookButton /> */}
+              </div>
+            </div>
           </div>
         </div>
       </div>

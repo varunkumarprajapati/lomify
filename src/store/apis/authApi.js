@@ -43,6 +43,14 @@ const authApi = createApi({
           body: { password },
         }),
       }),
+      googleLogin: builder.mutation({
+        query: (googleToken) => ({
+          url: "/google",
+          method: "POST",
+          body: { token: googleToken },
+          credentials: "include", //same as axios withCredentials:true
+        }),
+      }),
     };
   },
 });
@@ -53,5 +61,6 @@ export const {
   useVerifyEmailQuery,
   useLazyForgotPasswordQuery,
   useResetPasswordMutation,
+  useGoogleLoginMutation,
 } = authApi;
 export { authApi };
